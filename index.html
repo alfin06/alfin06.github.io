@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfin's Homepage | Alfin Wijaya Rahardja</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gothic: {
+                            bg: '#000000',
+                            card: '#080808',
+                            hover: '#121010',
+                            silver: '#D1D0D0',
+                            mauve: '#988686',
+                            rose: '#5C4E4E',
+                            rosedark: '#211a1a',
+                            border: '#262020'
+                        },
+                        light: {
+                            bg: '#F8F9FA',
+                            card: '#FFFFFF',
+                            hover: '#F1F3F5',
+                            text: '#1A1A1A',
+                            subtext: '#4A5568',
+                            border: '#E2E8F0',
+                            accent: '#5C4E4E'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Browser Favicon Tags -->
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    <link rel="apple-touch-icon" href="assets/logo.svg">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* Profile Container Glow */
+        .profile-container {
+            border: 1px solid #5C4E4E;
+            box-shadow: 0 0 20px rgba(152, 134, 134, 0.12);
+        }
+
+        .profile-container:hover {
+            border-color: #988686;
+            box-shadow: 0 0 25px rgba(152, 134, 134, 0.25);
+        }
+
+        /* Project Card Hover */
+        .gothic-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (min-width: 768px) {
+            .gothic-card:hover {
+                transform: translateY(-2px);
+            }
+        }
+
+        /* Skill Pill Active / Cross Highlight Styles */
+        .skill-pill {
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+        }
+
+        .skill-pill.active-highlight {
+            border-color: #988686 !important;
+            background-color: #5C4E4E !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 10px rgba(152, 134, 134, 0.4);
+        }
+
+        /* Nav active link styling */
+        .nav-link.active-nav {
+            color: #988686 !important;
+            font-weight: 700;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #262020;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 3px;
+        }
+
+        /* Touch target enforcement for mobile */
+        @media (max-width: 640px) {
+            button, a {
+                min-height: 38px;
+            }
+            .skill-pill {
+                min-height: 36px;
+                display: inline-flex;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body class="dark:bg-black bg-light-bg dark:text-gothic-silver text-light-text relative min-h-screen flex flex-col justify-between selection:bg-gothic-rose selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-40 dark:bg-black/95 bg-white/95 backdrop-blur-md border-b dark:border-gothic-border border-light-border transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <!-- Brand -->
+            <a href="#hero" class="flex items-center gap-2.5 font-mono group">
+                <img src="assets/logo.svg" alt="Alfin W. Rahardja Logo" class="w-8 h-8 rounded object-contain transition-transform group-hover:scale-105">
+                <span class="text-xs sm:text-sm font-bold tracking-tight dark:text-white text-slate-900 group-hover:text-gothic-mauve transition-colors">Alfin W. Rahardja</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-6 text-xs font-mono">
+                <a href="#about" class="nav-link dark:text-gothic-silver text-slate-600 hover:text-gothic-mauve dark:hover:text-white transition-colors">01. About</a>
+                <a href="#projects" class="nav-link dark:text-gothic-silver text-slate-600 hover:text-gothic-mauve dark:hover:text-white transition-colors">02. Research & Projects</a>
+                <a href="#skills" class="nav-link dark:text-gothic-silver text-slate-600 hover:text-gothic-mauve dark:hover:text-white transition-colors">03. Skills</a>
+                <a href="#terminal" class="nav-link text-gothic-mauve hover:text-gothic-rose dark:hover:text-white transition-colors"><i class="fa-solid fa-terminal me-1 text-[10px]"></i>04. Terminal</a>
+            </nav>
+
+            <!-- Right Controls: Theme Switcher + Contact -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button onclick="toggleTheme()" id="themeToggleBtn" aria-label="Toggle Theme" class="p-2 sm:p-2.5 rounded-lg border dark:border-gothic-border border-light-border dark:bg-gothic-card bg-white dark:text-gothic-mauve text-slate-700 hover:border-gothic-mauve transition-all text-xs flex items-center justify-center">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+                
+                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-3.5 py-1.5 text-xs font-mono rounded bg-gothic-rose text-white hover:bg-gothic-mauve transition-all shadow-sm">
+                    Contact
+                </a>
+                
+                <button id="mobileMenuBtn" aria-label="Open Navigation Menu" class="md:hidden p-2 rounded-lg border dark:border-gothic-border border-slate-300 dark:bg-gothic-card bg-white dark:text-gothic-silver text-slate-700 flex items-center justify-center">
+                    <i id="mobileMenuIcon" class="fa-solid fa-bars text-base"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden dark:bg-black/98 bg-white/98 backdrop-blur-lg border-b dark:border-gothic-border border-light-border px-5 py-4 space-y-2 font-mono text-xs shadow-2xl transition-all">
+            <a href="#about" class="block py-2.5 border-b dark:border-gothic-border/50 border-slate-100 dark:text-gothic-silver text-slate-800 hover:text-gothic-mauve flex items-center justify-between" onclick="toggleMobileMenu()">
+                <span>01. About</span>
+                <i class="fa-solid fa-chevron-right text-[10px] text-gothic-mauve"></i>
+            </a>
+            <a href="#projects" class="block py-2.5 border-b dark:border-gothic-border/50 border-slate-100 dark:text-gothic-silver text-slate-800 hover:text-gothic-mauve flex items-center justify-between" onclick="toggleMobileMenu()">
+                <span>02. Research & Projects</span>
+                <i class="fa-solid fa-chevron-right text-[10px] text-gothic-mauve"></i>
+            </a>
+            <a href="#skills" class="block py-2.5 border-b dark:border-gothic-border/50 border-slate-100 dark:text-gothic-silver text-slate-800 hover:text-gothic-mauve flex items-center justify-between" onclick="toggleMobileMenu()">
+                <span>03. Skills</span>
+                <i class="fa-solid fa-chevron-right text-[10px] text-gothic-mauve"></i>
+            </a>
+            <a href="#terminal" class="block py-2.5 border-b dark:border-gothic-border/50 border-slate-100 text-gothic-mauve hover:text-gothic-rose flex items-center justify-between" onclick="toggleMobileMenu()">
+                <span>04. Terminal CLI</span>
+                <i class="fa-solid fa-terminal text-[10px]"></i>
+            </a>
+            <a href="#contact" class="block py-3 text-center rounded bg-gothic-rose text-white font-bold mt-3 transition-all" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-envelope me-1.5"></i> Contact Me
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-16 space-y-16 sm:space-y-24 flex-grow">
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-[70vh] sm:min-h-[75vh] flex flex-col justify-center pt-4 sm:pt-6">
+            <div class="grid lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+                
+                <!-- Hero Info -->
+                <div class="lg:col-span-8 space-y-4 sm:space-y-6 order-2 lg:order-1">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:py-1 rounded-full dark:bg-gothic-card bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-mauve text-slate-700 text-[11px] sm:text-xs font-mono shadow-sm max-w-full">
+                        <span class="w-2 h-2 rounded-full dark:bg-gothic-mauve bg-gothic-rose animate-pulse flex-shrink-0"></span>
+                        <span class="truncate">Fudan University • Electronic Information</span>
+                    </div>
+
+                    <div>
+                        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold dark:text-white text-slate-900 tracking-tight leading-tight mb-2">
+                            Alfin Wijaya <span class="dark:text-gothic-silver text-slate-700 border-b-2 border-gothic-rose pb-0.5">Rahardja</span>
+                        </h1>
+                        <!-- Typewriter Role Switcher -->
+                        <div class="text-sm sm:text-xl font-mono text-gothic-mauve h-8 flex items-center mt-2 sm:mt-3">
+                            <span class="dark:text-gothic-silver text-slate-500 me-2">&gt;</span>
+                            <span id="typewriterText" class="dark:text-white text-slate-900 font-semibold truncate"></span>
+                            <span class="w-2 h-4 bg-gothic-mauve ml-1 inline-block animate-pulse flex-shrink-0"></span>
+                        </div>
+                    </div>
+
+                    <p class="dark:text-gothic-silver text-slate-600 text-xs sm:text-sm leading-relaxed max-w-2xl">
+                        Master's student at <a href="https://www.fudan.edu.cn/en/" target="_blank" class="dark:text-white text-slate-900 font-semibold underline hover:text-gothic-mauve transition-colors">Fudan University</a>, graduating in June 2027. Focus on <strong class="dark:text-white text-slate-900">Intelligent Software Engineering, AI4SE, SE4AI</strong>, software debugging, and automated evaluation frameworks for LLM SE agents.
+                    </p>
+
+                    <!-- Quick Action Strip -->
+                    <div class="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-1 sm:pt-2">
+                        <a href="#projects" class="w-full sm:w-auto px-4 py-2.5 sm:py-2 rounded bg-gothic-rose hover:bg-gothic-mauve text-white text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-flask"></i> Research & Projects
+                        </a>
+                        <a href="#contact" class="w-full sm:w-auto px-4 py-2.5 sm:py-2 rounded dark:bg-gothic-card bg-white border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve dark:text-gothic-silver text-slate-800 text-xs font-mono transition-all flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-envelope text-gothic-mauve"></i> Contact Me
+                        </a>
+                    </div>
+
+                    <!-- Status Notification Toast -->
+                    <div id="toastMessage" class="hidden text-xs font-mono dark:text-gothic-silver text-slate-800 dark:bg-gothic-card bg-white border border-gothic-mauve p-2.5 rounded w-full sm:w-fit transition-all shadow-md"></div>
+                </div>
+
+                <!-- Profile Photo Holder -->
+                <div class="lg:col-span-4 flex flex-col items-center order-1 lg:order-2">
+                    <div class="profile-container w-40 h-40 sm:w-52 sm:h-52 lg:w-56 lg:h-56 rounded-2xl dark:bg-gothic-card bg-slate-200 overflow-hidden relative group transition-all">
+                        <img id="profileImg" src="assets/profile.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x400/080808/D1D0D0?text=Alfin+Rahardja';" alt="Alfin Wijaya Rahardja" class="w-full h-full object-cover rounded-xl transition-all duration-300 group-hover:scale-105">
+                    </div>
+                    <div class="text-center mt-3">
+                        <span class="text-xs font-bold dark:text-white text-slate-900 block">Alfin Wijaya Rahardja</span>
+                        <span class="text-[11px] font-mono text-gothic-mauve">Fudan University • Shanghai</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-5 sm:mb-6">
+                <span class="font-mono text-gothic-mauve text-sm">01.</span>
+                <h2 class="text-lg sm:text-2xl font-bold dark:text-white text-slate-900 tracking-tight">About & Background</h2>
+                <div class="h-px dark:bg-gothic-border bg-light-border flex-grow ml-2"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 sm:gap-6">
+                <div class="md:col-span-2 dark:bg-gothic-card bg-white dark:border-gothic-border border-light-border border p-5 sm:p-6 rounded-xl space-y-3.5 text-xs sm:text-sm dark:text-gothic-silver text-slate-600 leading-relaxed gothic-card shadow-sm">
+                    <p>
+                        I am currently a Master's student in Electronic Information at <strong class="dark:text-white text-slate-900"><a href="https://www.fudan.edu.cn/en/" target="_blank" class="hover:text-gothic-mauve transition-colors">Fudan University</a></strong>. My research interests lie primarily in Software Engineering and its intersection with Artificial Intelligence, with a focus on <strong class="dark:text-white text-slate-900">Intelligent Software Engineering, AI4SE, SE4AI, Software Testing & Debugging</strong>.
+                    </p>
+                    <p>
+                        My background merges graduate-level research with industry engineering experience. Previously, I served as an IT Application Development Supervisor at <strong class="dark:text-white text-slate-900"><a href="https://www.linkedin.com/company/pelita-harapan-group" target="_blank" class="hover:text-gothic-mauve transition-colors">Pelita Harapan Group</a></strong> and as an IT Programmer at <strong class="dark:text-white text-slate-900"><a href="https://abeka.com/" target="_blank" class="hover:text-gothic-mauve transition-colors">Abeka</a></strong>. I earned my B.S. in Computer Information Systems with minor in Mathematics from <strong class="dark:text-white text-slate-900"><a href="https://pcci.edu/" target="_blank" class="hover:text-gothic-mauve transition-colors">Pensacola Christian College</a></strong>.
+                    </p>
+                </div>
+
+                <div class="dark:bg-gothic-card bg-white dark:border-gothic-border border-light-border border p-5 sm:p-6 rounded-xl space-y-4 font-mono text-xs gothic-card shadow-sm">
+                    <div class="text-gothic-mauve uppercase text-[10px] tracking-wider font-bold">Latest Highlights</div>
+                    
+                    <div class="space-y-3">
+                        <div class="pb-3 border-b dark:border-gothic-border border-light-border">
+                            <div class="text-[10px] text-gothic-mauve">June 4, 2026</div>
+                            <div class="dark:text-white text-slate-900 font-bold mt-0.5">AWS AI Practitioner Challenge</div>
+                            <div class="text-[11px] dark:text-gothic-silver text-slate-600 mt-1">
+                                Udacity Certified AI Practitioner. 
+                                [<a href="https://www.udacity.com/certificate/e/90caa89e-3783-11f1-b49c-136833f0af0c" target="_blank" class="text-gothic-mauve hover:text-gothic-rose underline">Verify</a>]
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="text-[10px] text-gothic-mauve">Sept 18, 2025</div>
+                            <div class="dark:text-white text-slate-900 font-bold mt-0.5">NeurIPS 2025 Proceedings</div>
+                            <div class="text-[11px] dark:text-gothic-silver text-slate-600 mt-1">
+                                Paper: <em>"Can Agents Fix Agent Issues?"</em> (Co-first author). 
+                                [<a href="https://papers.nips.cc/paper_files/paper/2025/hash/45f0ab2d264a057113492b35c5ef47f2-Abstract-Conference.html" target="_blank" class="text-gothic-mauve hover:text-gothic-rose underline">Link</a>]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research & Projects Section -->
+        <section id="projects" class="scroll-mt-20">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-5 sm:mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="font-mono text-gothic-mauve text-sm">02.</span>
+                    <h2 class="text-lg sm:text-2xl font-bold dark:text-white text-slate-900 tracking-tight">Research & Projects</h2>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap items-center gap-1 p-1 dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border rounded-lg text-xs font-mono shadow-sm overflow-x-auto max-w-full">
+                    <button onclick="filterProjects('all')" class="project-tab active px-2.5 sm:px-3 py-1.5 sm:py-1 rounded bg-gothic-rose text-white transition-all text-[11px] sm:text-xs" data-filter="all">All</button>
+                    <button onclick="filterProjects('research')" class="project-tab px-2.5 sm:px-3 py-1.5 sm:py-1 rounded dark:text-gothic-silver text-slate-700 hover:text-gothic-mauve transition-all text-[11px] sm:text-xs" data-filter="research">Research</button>
+                    <button onclick="filterProjects('ai')" class="project-tab px-2.5 sm:px-3 py-1.5 sm:py-1 rounded dark:text-gothic-silver text-slate-700 hover:text-gothic-mauve transition-all text-[11px] sm:text-xs" data-filter="ai">AI & Agents</button>
+                    <button onclick="filterProjects('web')" class="project-tab px-2.5 sm:px-3 py-1.5 sm:py-1 rounded dark:text-gothic-silver text-slate-700 hover:text-gothic-mauve transition-all text-[11px] sm:text-xs" data-filter="web">Web Systems</button>
+                </div>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div id="projectsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+
+                <!-- Card: Paper "Can Agents Fix Agent Issues?" -->
+                <div class="project-card dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-5 sm:p-6 rounded-xl flex flex-col justify-between gothic-card shadow-sm" data-category="research" data-skills="python,llm,pytorch,benchmarking">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 font-mono text-xs">
+                            <span class="px-2 py-0.5 rounded dark:bg-gothic-rosedark bg-rose-100 dark:text-gothic-silver text-rose-900 border dark:border-gothic-rose border-rose-300 font-bold text-[10px] sm:text-xs">NeurIPS 2025</span>
+                            <span class="text-[10px] text-gothic-mauve font-mono">Co-first Author</span>
+                        </div>
+                        <h3 class="text-base font-bold dark:text-white text-slate-900 mb-2 hover:text-gothic-mauve transition-colors cursor-pointer" onclick="openProjectModal('paper_can_agents')">
+                            Can Agents Fix Agent Issues?
+                        </h3>
+                        <p class="text-xs dark:text-gothic-silver text-slate-600 line-clamp-3 leading-relaxed mb-4">
+                            Accepted by the 39th Annual Conference on Neural Information Processing Systems (NeurIPS 2025). Analyzing failure modes of LLM SE agents.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1 mb-4 text-[10px] font-mono">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Paper</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">AI4SE</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">SE4AI</span>
+                        </div>
+                        <button onclick="openProjectModal('paper_can_agents')" class="w-full py-2 sm:py-1.5 rounded dark:bg-black bg-slate-50 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve text-gothic-mauve dark:hover:text-white hover:text-slate-900 text-xs font-mono transition-all flex items-center justify-center gap-1">
+                            <span>Read Abstract & Paper</span> &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card: Benchmark "AgentIssue-Bench" -->
+                <div class="project-card dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-5 sm:p-6 rounded-xl flex flex-col justify-between gothic-card shadow-sm" data-category="ai" data-skills="python,docker,llm,linux,pytorch,benchmarking">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 font-mono text-xs">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 text-gothic-mauve font-bold text-[10px] sm:text-xs">Evaluation Harness</span>
+                            <i class="fa-solid fa-vial text-gothic-mauve"></i>
+                        </div>
+                        <h3 class="text-base font-bold dark:text-white text-slate-900 mb-2 hover:text-gothic-mauve transition-colors cursor-pointer" onclick="openProjectModal('agentissue_bench')">
+                            AgentIssue-Bench
+                        </h3>
+                        <p class="text-xs dark:text-gothic-silver text-slate-600 line-clamp-3 leading-relaxed mb-4">
+                            First reproducible issue resolution benchmark with 50 task environments evaluating state-of-the-art SE agents on agentic software failures.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1 mb-4 text-[10px] font-mono">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Benchmark</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Docker</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Python</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">LLM</span>
+                        </div>
+                        <button onclick="openProjectModal('agentissue_bench')" class="w-full py-2 sm:py-1.5 rounded dark:bg-black bg-slate-50 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve text-gothic-mauve dark:hover:text-white hover:text-slate-900 text-xs font-mono transition-all flex items-center justify-center gap-1">
+                            <span>View Benchmark</span> &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card: OpenBengkel -->
+                <div class="project-card dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-5 sm:p-6 rounded-xl flex flex-col justify-between gothic-card shadow-sm" data-category="web" data-skills="laravel,vue.js,inertia.js,mysql,php">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 font-mono text-xs">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 text-gothic-mauve font-bold text-[10px] sm:text-xs">Production App</span>
+                            <i class="fa-solid fa-wrench text-gothic-mauve"></i>
+                        </div>
+                        <h3 class="text-base font-bold dark:text-white text-slate-900 mb-2 hover:text-gothic-mauve transition-colors cursor-pointer" onclick="openProjectModal('openbengkel')">
+                            OpenBengkel
+                        </h3>
+                        <p class="text-xs dark:text-gothic-silver text-slate-600 line-clamp-3 leading-relaxed mb-4">
+                            Production full-stack auto repair shop management system with real-time technician dispatches, inventory tracking, and billing.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1 mb-4 text-[10px] font-mono">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Laravel</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Vue 3</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Inertia.js</span>
+                        </div>
+                        <button onclick="openProjectModal('openbengkel')" class="w-full py-2 sm:py-1.5 rounded dark:bg-black bg-slate-50 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve text-gothic-mauve dark:hover:text-white hover:text-slate-900 text-xs font-mono transition-all flex items-center justify-center gap-1">
+                            <span>View System</span> &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card: PortoGraph AI -->
+                <div class="project-card dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-5 sm:p-6 rounded-xl flex flex-col justify-between gothic-card shadow-sm" data-category="ai" data-skills="python,llm,api,postgresql">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 font-mono text-xs">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 text-gothic-mauve font-bold text-[10px] sm:text-xs">Side Project</span>
+                            <i class="fa-solid fa-chart-line text-gothic-mauve"></i>
+                        </div>
+                        <h3 class="text-base font-bold dark:text-white text-slate-900 mb-2 hover:text-gothic-mauve transition-colors cursor-pointer" onclick="openProjectModal('portograph_ai')">
+                            PortoGraph AI
+                        </h3>
+                        <p class="text-xs dark:text-gothic-silver text-slate-600 line-clamp-3 leading-relaxed mb-4">
+                            A lightweight trading assistant combining Telegram approvals, rule-based screening, and Generative AI for reflective analysis.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1 mb-4 text-[10px] font-mono">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Python</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">LLM</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">PostgreSQL</span>
+                        </div>
+                        <button onclick="openProjectModal('portograph_ai')" class="w-full py-2 sm:py-1.5 rounded dark:bg-black bg-slate-50 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve text-gothic-mauve dark:hover:text-white hover:text-slate-900 text-xs font-mono transition-all flex items-center justify-center gap-1">
+                            <span>View System</span> &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card: StudyReserve -->
+                <div class="project-card dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-5 sm:p-6 rounded-xl flex flex-col justify-between gothic-card shadow-sm" data-category="web" data-skills="python,django,vue.js,mysql">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 font-mono text-xs">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 text-gothic-mauve font-bold text-[10px] sm:text-xs">Class Project</span>
+                            <i class="fa-solid fa-graduation-cap text-gothic-mauve"></i>
+                        </div>
+                        <h3 class="text-base font-bold dark:text-white text-slate-900 mb-2 hover:text-gothic-mauve transition-colors cursor-pointer" onclick="openProjectModal('studyreserve')">
+                            StudyReserve
+                        </h3>
+                        <p class="text-xs dark:text-gothic-silver text-slate-600 line-clamp-3 leading-relaxed mb-4">
+                            Full‑stack web application for reserving study seats and classroom spaces with a simple, student-friendly interface.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1 mb-4 text-[10px] font-mono">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Python</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Django</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Vue.js</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">MySQL</span>
+                        </div>
+                        <button onclick="openProjectModal('studyreserve')" class="w-full py-2 sm:py-1.5 rounded dark:bg-black bg-slate-50 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve text-gothic-mauve dark:hover:text-white hover:text-slate-900 text-xs font-mono transition-all flex items-center justify-center gap-1">
+                            <span>View System</span> &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card: SDH Admission System -->
+                <div class="project-card dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-5 sm:p-6 rounded-xl flex flex-col justify-between gothic-card shadow-sm" data-category="web" data-skills="php,laravel,mysql,javascript,azure">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 font-mono text-xs">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 text-gothic-mauve font-bold text-[10px] sm:text-xs">Production App</span>
+                            <i class="fa-solid fa-school text-gothic-mauve"></i>
+                        </div>
+                        <h3 class="text-base font-bold dark:text-white text-slate-900 mb-2 hover:text-gothic-mauve transition-colors cursor-pointer" onclick="openProjectModal('admission_system')">
+                            SDH Admission Portal
+                        </h3>
+                        <p class="text-xs dark:text-gothic-silver text-slate-600 line-clamp-3 leading-relaxed mb-4">
+                            Centralized online admissions platform processing student applications across multiple school campuses in Indonesia.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1 mb-4 text-[10px] font-mono">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">PHP</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Laravel</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">JavaScript</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">Azure</span>
+                        </div>
+                        <button onclick="openProjectModal('admission_system')" class="w-full py-2 sm:py-1.5 rounded dark:bg-black bg-slate-50 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve text-gothic-mauve dark:hover:text-white hover:text-slate-900 text-xs font-mono transition-all flex items-center justify-center gap-1">
+                            <span>View System</span> &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card: ABeka Course Recommender -->
+                <div class="project-card dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-5 sm:p-6 rounded-xl flex flex-col justify-between gothic-card shadow-sm" data-category="web" data-skills="c#,.net,oracle,jquery,javascript,windows">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 font-mono text-xs">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 text-gothic-mauve font-bold text-[10px] sm:text-xs">Production App</span>
+                            <i class="fa-solid fa-book text-gothic-mauve"></i>
+                        </div>
+                        <h3 class="text-base font-bold dark:text-white text-slate-900 mb-2 hover:text-gothic-mauve transition-colors cursor-pointer" onclick="openProjectModal('course_recommender')">
+                            ABeka Course Recommender
+                        </h3>
+                        <p class="text-xs dark:text-gothic-silver text-slate-600 line-clamp-3 leading-relaxed mb-4">
+                            Smart recommendation engine matching students with optimal Abeka academic courses based on history and goals.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1 mb-4 text-[10px] font-mono">
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">C#</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">ASP.NET</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">PL/SQL</span>
+                            <span class="px-2 py-0.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700">jQuery</span>
+                        </div>
+                        <button onclick="openProjectModal('course_recommender')" class="w-full py-2 sm:py-1.5 rounded dark:bg-black bg-slate-50 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve text-gothic-mauve dark:hover:text-white hover:text-slate-900 text-xs font-mono transition-all flex items-center justify-center gap-1">
+                            <span>View System</span> &rarr;
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Skill Matrix Section -->
+        <section id="skills" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-5 sm:mb-6">
+                <span class="font-mono text-gothic-mauve text-sm">03.</span>
+                <h2 class="text-lg sm:text-2xl font-bold dark:text-white text-slate-900 tracking-tight">Interactive Skill Matrix</h2>
+                <div class="h-px dark:bg-gothic-border bg-light-border flex-grow ml-2"></div>
+            </div>
+
+            <p class="text-xs dark:text-gothic-silver text-slate-600 font-mono mb-4">
+                <i class="fa-solid fa-circle-info me-1 text-gothic-mauve"></i> Tap any skill pill tag to highlight relevant research and projects.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-4 sm:gap-6">
+
+                <!-- Category 1: Languages -->
+                <div class="dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-4 sm:p-5 rounded-xl border-t-2 border-t-gothic-mauve gothic-card shadow-sm">
+                    <h3 class="text-xs font-bold dark:text-white text-slate-900 uppercase font-mono tracking-wider mb-3 sm:mb-4">Languages</h3>
+                    <div class="flex flex-wrap gap-1.5 sm:gap-2">
+                        <button onclick="highlightSkill('python')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">Python</button>
+                        <button onclick="highlightSkill('php')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">PHP</button>
+                        <button onclick="highlightSkill('c#')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">C# / .NET</button>
+                        <button onclick="highlightSkill('javascript')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">JavaScript</button>
+                        <button onclick="highlightSkill('jquery')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">jQuery</button>
+                    </div>
+                </div>
+
+                <!-- Category 2: Frameworks & AI -->
+                <div class="dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-4 sm:p-5 rounded-xl border-t-2 border-t-gothic-rose gothic-card shadow-sm">
+                    <h3 class="text-xs font-bold dark:text-white text-slate-900 uppercase font-mono tracking-wider mb-3 sm:mb-4">Frameworks & AI</h3>
+                    <div class="flex flex-wrap gap-1.5 sm:gap-2">
+                        <button onclick="highlightSkill('laravel')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">Laravel</button>
+                        <button onclick="highlightSkill('django')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">Django</button>
+                        <button onclick="highlightSkill('vue.js')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">Vue 3 / Inertia</button>
+                        <button onclick="highlightSkill('pytorch')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">PyTorch</button>
+                        <button onclick="highlightSkill('llm')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">LLM</button>
+                    </div>
+                </div>
+
+                <!-- Category 3: Infrastructure -->
+                <div class="dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-4 sm:p-5 rounded-xl border-t-2 border-t-gothic-silver gothic-card shadow-sm">
+                    <h3 class="text-xs font-bold dark:text-white text-slate-900 uppercase font-mono tracking-wider mb-3 sm:mb-4">DevOps & Infrastructure</h3>
+                    <div class="flex flex-wrap gap-1.5 sm:gap-2">
+                        <button onclick="highlightSkill('docker')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">Docker</button>
+                        <button onclick="highlightSkill('azure')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">Microsoft Azure</button>
+                        <button onclick="highlightSkill('mysql')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">MySQL</button>
+                        <button onclick="highlightSkill('oracle')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">Oracle</button>
+                        <button onclick="highlightSkill('linux')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">Linux</button>
+                        <button onclick="highlightSkill('windows')" class="skill-pill px-2.5 py-1 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-700 text-xs font-mono hover:border-gothic-mauve">Windows</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CLI Terminal Section -->
+        <section id="terminal" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-5 sm:mb-6">
+                <span class="font-mono text-gothic-mauve text-sm">04.</span>
+                <h2 class="text-lg sm:text-2xl font-bold dark:text-white text-slate-900 tracking-tight">Alfin's CLI Terminal</h2>
+                <div class="h-px dark:bg-gothic-border bg-light-border flex-grow ml-2"></div>
+            </div>
+
+            <div class="dark:bg-black bg-slate-900 border dark:border-gothic-border border-slate-800 rounded-xl overflow-hidden font-mono shadow-2xl">
+                <!-- Bar Header -->
+                <div class="dark:bg-gothic-card bg-slate-800 px-3 sm:px-4 py-2 border-b dark:border-gothic-border border-slate-700 flex items-center justify-between">
+                    <div class="flex items-center gap-1.5 sm:gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-gothic-rose inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-gothic-mauve inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-gothic-silver inline-block"></span>
+                        <span class="ml-1 sm:ml-2 text-xs text-gothic-mauve font-bold">alfin@cli:~</span>
+                    </div>
+                    <span class="text-[10px] text-gothic-mauve hidden sm:block">Commands: help, bio, paper, bench, skills, contact, clear</span>
+                </div>
+
+                <!-- CLI Window Output -->
+                <div id="cliOutput" class="p-3 sm:p-4 text-xs text-gothic-silver h-56 sm:h-64 overflow-y-auto space-y-2 leading-relaxed">
+                    <div>Welcome to Alfin's Terminal.</div>
+                    <div class="text-gothic-mauve">Type <span class="text-white font-bold">help</span> to view all commands.</div>
+                </div>
+
+                <!-- Input Field -->
+                <div class="bg-black px-3 sm:px-4 py-2 sm:py-2.5 border-t dark:border-gothic-border border-slate-800 flex items-center gap-2">
+                    <span class="text-gothic-mauve text-xs font-bold whitespace-nowrap">alfin@cli:~$</span>
+                    <input type="text" id="cliInput" class="flex-grow bg-transparent text-white text-xs focus:outline-none font-mono placeholder-gothic-mauve/40 min-w-0" placeholder="type command..." onkeydown="handleCliKeyDown(event)" autocomplete="off" autocapitalize="none">
+                    <button onclick="runCliCommand()" class="px-2.5 sm:px-3 py-1 bg-gothic-rose hover:bg-gothic-mauve text-white text-xs rounded transition-all flex-shrink-0">
+                        Exec
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-5 sm:mb-6">
+                <span class="font-mono text-gothic-mauve text-sm">05.</span>
+                <h2 class="text-lg sm:text-2xl font-bold dark:text-white text-slate-900 tracking-tight">Contact</h2>
+                <div class="h-px dark:bg-gothic-border bg-light-border flex-grow ml-2"></div>
+            </div>
+
+            <div class="dark:bg-gothic-card bg-white border dark:border-gothic-border border-light-border p-5 sm:p-8 rounded-xl max-w-2xl mx-auto text-center space-y-5 sm:space-y-6 shadow-sm gothic-card">
+                <p class="text-xs sm:text-sm dark:text-gothic-silver text-slate-600 leading-relaxed">
+                    Whether you have questions regarding research collaborations or software engineering proposals, feel free to send me an email or add me on LinkedIn.
+                </p>
+
+                <div class="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2.5 sm:gap-3 text-xs font-mono">
+                    <a href="mailto:alfinrahardja@gmail.com" class="px-3.5 py-2.5 sm:py-2 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve dark:text-gothic-silver text-slate-800 hover:text-gothic-rose transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-envelope text-gothic-mauve"></i> <span>Email Me</span>
+                    </a>
+                    <a href="https://github.com/alfin06" target="_blank" class="px-3.5 py-2.5 sm:py-2 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve dark:text-gothic-silver text-slate-800 hover:text-gothic-rose transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-github text-gothic-mauve"></i> <span>GitHub</span>
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=l5VJcHcAAAAJ&hl=en" target="_blank" class="px-3.5 py-2.5 sm:py-2 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve dark:text-gothic-silver text-slate-800 hover:text-gothic-rose transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-gothic-mauve"></i> <span>Scholar</span>
+                    </a>
+                    <a href="https://linkedin.com/in/arahardja" target="_blank" class="px-3.5 py-2.5 sm:py-2 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 hover:border-gothic-mauve dark:text-gothic-silver text-slate-800 hover:text-gothic-rose transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-linkedin text-gothic-mauve"></i> <span>LinkedIn</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t dark:border-gothic-border border-light-border py-6 sm:py-8 dark:bg-black bg-white transition-colors">
+        <div class="max-w-6xl mx-auto px-4 text-center text-xs font-mono text-gothic-mauve">
+            &copy; 2026 Alfin Wijaya Rahardja
+        </div>
+    </footer>
+
+    <!-- Project Spec Modal -->
+    <div id="projectDetailModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md hidden">
+        <div class="dark:bg-black bg-white w-full max-w-xl rounded-xl border border-gothic-rose overflow-hidden font-mono text-xs flex flex-col max-h-[85vh] shadow-2xl">
+            <div class="p-3.5 sm:p-4 border-b dark:border-gothic-border border-slate-200 flex justify-between items-center dark:bg-gothic-card bg-slate-50">
+                <h3 id="modalTitle" class="font-bold dark:text-white text-slate-900 text-xs sm:text-sm truncate max-w-[85%]">Specs</h3>
+                <button onclick="closeModal('projectDetailModal')" class="text-gothic-mauve hover:text-gothic-rose p-1 flex items-center justify-center"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div id="modalBody" class="p-4 sm:p-6 space-y-4 dark:text-gothic-silver text-slate-700 leading-relaxed font-sans overflow-y-auto">
+            </div>
+            <div class="p-3 border-t dark:border-gothic-border border-slate-200 dark:bg-gothic-card bg-slate-50 flex justify-end">
+                <button onclick="closeModal('projectDetailModal')" class="px-4 py-2 sm:py-1.5 dark:bg-gothic-card bg-slate-200 border dark:border-gothic-border border-slate-300 dark:text-gothic-silver text-slate-800 hover:text-gothic-rose rounded font-mono transition-all">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Theme Switcher Logic ---
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('themeIcon').className = 'fa-solid fa-sun';
+            } else {
+                document.documentElement.classList.add('dark');
+                document.getElementById('themeIcon').className = 'fa-solid fa-moon';
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            document.getElementById('themeIcon').className = isDark ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+        }
+
+        // --- Role Switcher Typewriter Loop ---
+        const roles = [
+            "M.S. Student @ Fudan University",
+            "NeurIPS 2025 Co-first Author",
+            "Full-Stack Software Engineer",
+            "Graduate Student Research Assistant"
+        ];
+        let roleIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        const twElem = document.getElementById("typewriterText");
+
+        function loopTypewriter() {
+            const current = roles[roleIdx];
+            if (isDeleting) {
+                twElem.textContent = current.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                twElem.textContent = current.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            if (!isDeleting && charIdx === current.length) {
+                isDeleting = true;
+                setTimeout(loopTypewriter, 1800);
+                return;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                roleIdx = (roleIdx + 1) % roles.length;
+            }
+
+            setTimeout(loopTypewriter, isDeleting ? 30 : 60);
+        }
+
+        // --- Active Navigation Link Observer ---
+        function initScrollObserver() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active-nav');
+                            } else {
+                                link.classList.remove('active-nav');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.25 });
+
+            sections.forEach(sec => observer.observe(sec));
+        }
+
+        // --- Project Filter Tabs ---
+        function filterProjects(category) {
+            document.querySelectorAll(".project-tab").forEach(tab => {
+                if (tab.getAttribute("data-filter") === category) {
+                    tab.classList.add("bg-gothic-rose", "text-white");
+                    tab.classList.remove("dark:text-gothic-silver", "text-slate-700");
+                } else {
+                    tab.classList.remove("bg-gothic-rose", "text-white");
+                    tab.classList.add("dark:text-gothic-silver", "text-slate-700");
+                }
+            });
+
+            document.querySelectorAll(".project-card").forEach(card => {
+                if (category === "all" || card.getAttribute("data-category") === category) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // --- Skill Cross-Highlighting ---
+        let activeSkill = null;
+        function highlightSkill(skillName) {
+            const lowerSkill = skillName.toLowerCase();
+            const skillPills = document.querySelectorAll(".skill-pill");
+            const projectCards = document.querySelectorAll(".project-card");
+
+            if (activeSkill === lowerSkill) {
+                activeSkill = null;
+                skillPills.forEach(p => p.classList.remove("active-highlight"));
+                projectCards.forEach(c => {
+                    c.style.opacity = "1";
+                    c.classList.remove("border-gothic-mauve");
+                });
+                showToast("Filter cleared");
+                return;
+            }
+
+            activeSkill = lowerSkill;
+            skillPills.forEach(p => {
+                if (p.textContent.toLowerCase().includes(lowerSkill)) {
+                    p.classList.add("active-highlight");
+                } else {
+                    p.classList.remove("active-highlight");
+                }
+            });
+
+            projectCards.forEach(card => {
+                const skillsAttr = card.getAttribute("data-skills") || "";
+                if (skillsAttr.includes(lowerSkill)) {
+                    card.style.opacity = "1";
+                    card.classList.add("border-gothic-mauve");
+                } else {
+                    card.style.opacity = "0.35";
+                    card.classList.remove("border-gothic-mauve");
+                }
+            });
+
+            showToast(`Filtered by: ${skillName}`);
+        }
+
+        // --- Modal Data ---
+        const modalData = {
+            paper_can_agents: {
+                title: "Can Agents Fix Agent Issues?",
+                body: `
+                    <div class="space-y-3 text-xs">
+                        <div class="p-2.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 font-mono text-gothic-mauve">
+                            <strong>Accepted at NeurIPS 2025</strong> • Co-first Author
+                        </div>
+                        <div class="pt-1">
+                            <a href="https://arxiv.org/abs/2505.20749" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                                <i class="fa-solid fa-file-pdf"></i> arXiv:2505.20749
+                            </a>
+                        </div>
+                        <p class="leading-relaxed">
+                            LLM-based agent systems are prone to unique bugs. While recent SE agents excel in traditional software, their effectiveness on agent system issues remains low. This study manual-analyzes 201 real-world agent issues and constructs AgentIssue-Bench to evaluate state-of-the-art SE agents, revealing low resolution rates (0.67%–4.67%).
+                        </p>
+                    </div>
+                `
+            },
+            agentissue_bench: {
+                title: "AgentIssue-Bench Framework",
+                body: `
+                    <div class="space-y-3 text-xs">
+                        <div class="p-2.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 font-mono text-gothic-mauve">
+                            Evaluation Harness & Task Benchmark
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-1">
+                            <a href="https://github.com/alfin06/AgentIssue-Bench" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                                <i class="fa-brands fa-github"></i> Repository
+                            </a>
+                            <a href="https://hub.docker.com/r/alfin06/agentissue-bench/tags" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                                <i class="fa-brands fa-docker"></i> Docker Hub
+                            </a>
+                            <a href="https://alfin06.github.io/AgentIssue-Bench-Leaderboard/" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                                <i class="fa-solid fa-line-chart"></i> Leaderboard
+                            </a>
+                        </div>
+                        <p class="leading-relaxed">
+                            Comprises 50 reproducible agent issue resolution tasks with dedicated execution environments and failure-triggering test suites.
+                        </p>
+                    </div>
+                `
+            },
+            openbengkel: {
+                title: "OpenBengkel System Architecture",
+                body: `
+                    <div class="space-y-3 text-xs">
+                        <div class="pt-1">
+                            <a href="https://github.com/alfin06/OpenBengkel" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                                <i class="fa-brands fa-github"></i> Repository
+                            </a>
+                        </div>
+                        <p class="leading-relaxed">
+                            Full-stack workshop management platform designed for auto repair shops. Manages work orders, invoice generation, technician schedules, and inventory tracking.
+                        </p>
+                        <h4 class="font-bold font-mono text-[11px]">Architecture Specs:</h4>
+                        <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
+                            <li><strong>Backend:</strong> Laravel REST API & Eloquent ORM</li>
+                            <li><strong>Frontend:</strong> Vue 3 SPA + Inertia.js</li>
+                            <li><strong>Database:</strong> MySQL relational schema</li>
+                        </ul>
+                    </div>
+                `
+            },
+            portograph_ai: {
+                title: "PortoGraph AI",
+                body: `
+                    <div class="space-y-3 text-xs">
+                        <div class="pt-1">
+                            <a href="https://github.com/alfin06/portograph-ai" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                                <i class="fa-brands fa-github"></i> Repository
+                            </a>
+                        </div>
+                        <p class="leading-relaxed">
+                            A lightweight trading assistant combining Telegram interactive approvals, rule-based screening, and Generative AI for reflective analysis.
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
+                            <li>Python backend engine</li>
+                            <li>PostgreSQL transaction log storage</li>
+                            <li>Telegram Bot API frontend integration</li>
+                        </ul>
+                    </div>
+                `
+            },
+            studyreserve: {
+                title: "StudyReserve Platform",
+                body: `
+                    <div class="space-y-3 text-xs">
+                        <div class="pt-1">
+                            <a href="https://github.com/alfin06/seat-reservation" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                                <i class="fa-brands fa-github"></i> Repository
+                            </a>
+                        </div>
+                        <p class="leading-relaxed">
+                            Classroom & study space reservation system featuring interactive layout mapping and conflict-free booking workflows.
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
+                            <li>Django REST backend</li>
+                            <li>Vue 3 client application</li>
+                            <li>MySQL database storage</li>
+                        </ul>
+                    </div>
+                `
+            },
+            admission_system: {
+                title: "SDH Admission System",
+                body: `
+                    <div class="space-y-3 text-xs">
+                        <div class="pt-1">
+                            <a href="https://sdh.or.id/registrasi/" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                                <i class="fa-solid fa-globe"></i> Website
+                            </a>
+                        </div>
+                        <p class="leading-relaxed">
+                            Centralized admissions portal handling nationwide student applications for SDH schools across Indonesia.
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
+                            <li>Laravel web framework</li>
+                            <li>MySQL database</li>
+                            <li>Hosted on Microsoft Azure</li>
+                        </ul>
+                    </div>
+                `
+            },
+            course_recommender: {
+                title: "ABeka Course Recommender",
+                body: `
+                    <div class="space-y-3 text-xs">
+                        <div class="pt-1">
+                            <a href="http://athome.abeka.com/" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                                <i class="fa-solid fa-globe"></i> Website
+                            </a>
+                        </div>
+                        <p class="leading-relaxed">
+                            Course recommendation system built for Abeka curriculum, calculating optimal course paths based on historical student records and goals.
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
+                            <li>ASP.NET / C# application</li>
+                            <li>Oracle Database with PL/SQL logic</li>
+                        </ul>
+                    </div>
+                `
+            }
+        };
+
+        function openProjectModal(key) {
+            const data = modalData[key];
+            if (data) {
+                document.getElementById("modalTitle").textContent = data.title;
+                document.getElementById("modalBody").innerHTML = data.body;
+                openModal("projectDetailModal");
+            }
+        }
+
+        // --- Terminal CLI Logic ---
+        function handleCliKeyDown(e) {
+            if (e.key === "Enter") runCliCommand();
+        }
+
+        function runCliCommand() {
+            const input = document.getElementById("cliInput");
+            const cmd = input.value.trim().toLowerCase();
+            if (!cmd) return;
+
+            const output = document.getElementById("cliOutput");
+            
+            const line = document.createElement("div");
+            line.className = "text-gothic-mauve font-bold";
+            line.innerHTML = `alfin@cli:~$ <span class="text-white font-normal">${escapeHtml(cmd)}</span>`;
+            output.appendChild(line);
+
+            const res = document.createElement("div");
+            res.className = "text-gothic-silver ml-2 mb-2 font-mono";
+
+            switch(cmd) {
+                case 'help':
+                    res.innerHTML = "Commands: <span class='text-white'>bio</span>, <span class='text-white'>paper</span>, <span class='text-white'>bench</span>, <span class='text-white'>skills</span>, <span class='text-white'>contact</span>, <span class='text-white'>clear</span>";
+                    break;
+                case 'bio':
+                    res.innerHTML = "Alfin Wijaya Rahardja | M.S. Student @ Fudan University. Researching SE, AI4SE, SE Agent Testing & Debugging.";
+                    break;
+                case 'paper':
+                    res.innerHTML = "Paper: 'Can Agents Fix Agent Issues?' (Accepted at NeurIPS 2025, Co-first author).";
+                    break;
+                case 'bench':
+                    res.innerHTML = "Benchmark: AgentIssue-Bench & Live-Harness Bench.";
+                    break;
+                case 'skills':
+                    res.innerHTML = "Python, PHP, C#, JavaScript, Laravel, Django, Vue 3, PyTorch, Docker, Linux, Azure.";
+                    break;
+                case 'contact':
+                    res.innerHTML = "Email: alfinrahardja@gmail.com | GitHub: github.com/alfin06 | LinkedIn: linkedin.com/in/arahardja";
+                    break;
+                case 'clear':
+                    output.innerHTML = "";
+                    input.value = "";
+                    return;
+                default:
+                    res.innerHTML = `<span class="text-gothic-rose">Unknown command '${escapeHtml(cmd)}'. Type 'help'.</span>`;
+            }
+
+            output.appendChild(res);
+            input.value = "";
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // --- Helpers ---
+        function openModal(id) { document.getElementById(id).classList.remove("hidden"); }
+        function closeModal(id) { document.getElementById(id).classList.add("hidden"); }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toastMessage");
+            toast.textContent = msg;
+            toast.classList.remove("hidden");
+            setTimeout(() => {
+                toast.classList.add("hidden");
+            }, 2500);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById("mobileMenu");
+            const icon = document.getElementById("mobileMenuIcon");
+            const isHidden = menu.classList.toggle("hidden");
+            icon.className = isHidden ? "fa-solid fa-bars text-base" : "fa-solid fa-xmark text-base";
+        }
+
+        document.getElementById("mobileMenuBtn").addEventListener("click", toggleMobileMenu);
+
+        // --- Window Initialization ---
+        window.onload = function() {
+            initTheme();
+            loopTypewriter();
+            initScrollObserver();
+        };
+    </script>
+</body>
+</html>

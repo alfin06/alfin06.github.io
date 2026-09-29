@@ -1,0 +1,15 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                    <!-- Rounded Tech Container -->
+                    <rect x="8" y="8" width="84" height="84" rx="18" fill="#080808" stroke="#5C4E4E" stroke-width="3"/>
+                    <!-- Inner Tech Box Grid -->
+                    <rect x="14" y="14" width="72" height="72" rx="12" fill="#121010" stroke="#262020" stroke-width="1.5"/>
+                    <!-- Bracket Left < -->
+                    <path d="M28 36 L18 50 L28 64" stroke="#988686" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Bracket Right > -->
+                    <path d="M72 36 L82 50 L72 64" stroke="#988686" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Stylized Center AR Monogram -->
+                    <path d="M38 64 L48 34 L58 64" stroke="#D1D0D0" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M42 52 H54" stroke="#D1D0D0" stroke-width="3.5"/>
+                    <path d="M54 52 C63 52 63 38 52 38" stroke="#D1D0D0" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M53 52 L62 64" stroke="#5C4E4E" stroke-width="4" stroke-linecap="round"/>
+                </svg>
