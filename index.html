@@ -809,126 +809,244 @@
                 `
             },
             agentissue_bench: {
-                title: "AgentIssue-Bench Framework",
+                title: "AgentIssue-Bench — Reproducible Issue Resolution Benchmark for SE Agents",
                 body: `
-                    <div class="space-y-3 text-xs">
-                        <div class="p-2.5 rounded dark:bg-black bg-slate-100 border dark:border-gothic-border border-slate-300 font-mono text-gothic-mauve">
-                            Evaluation Harness & Task Benchmark
+                    <div class="space-y-4 text-xs">
+                        <!-- Header Badges & Action Links -->
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b dark:border-gothic-border border-slate-200 pb-2">
+                            <span class="font-mono text-gothic-mauve font-bold">Research Benchmark • Evaluation Harness</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <a href="https://github.com/alfin06/AgentIssue-Bench" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-gothic-rose text-white font-mono text-[11px] hover:bg-gothic-mauve transition-all">
+                                    <i class="fa-brands fa-github"></i> Repository
+                                </a>
+                                <a href="https://hub.docker.com/r/alfin06/agentissue-bench/tags" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-gothic-rose text-white font-mono text-[11px] hover:bg-gothic-mauve transition-all">
+                                    <i class="fa-brands fa-docker"></i> Docker Hub
+                                </a>
+                                <a href="https://alfin06.github.io/AgentIssue-Bench-Leaderboard/" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-gothic-rose text-white font-mono text-[11px] hover:bg-gothic-mauve transition-all">
+                                    <i class="fa-solid fa-chart-line"></i> Leaderboard
+                                </a>
+                            </div>
                         </div>
-                        <div class="flex flex-wrap gap-2 pt-1">
-                            <a href="https://github.com/alfin06/AgentIssue-Bench" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
-                                <i class="fa-brands fa-github"></i> Repository
-                            </a>
-                            <a href="https://hub.docker.com/r/alfin06/agentissue-bench/tags" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
-                                <i class="fa-brands fa-docker"></i> Docker Hub
-                            </a>
-                            <a href="https://alfin06.github.io/AgentIssue-Bench-Leaderboard/" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
-                                <i class="fa-solid fa-line-chart"></i> Leaderboard
-                            </a>
+
+                        <!-- Problem Statement -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Problem</h4>
+                            <p class="leading-relaxed dark:text-gothic-silver text-slate-600">
+                                While state-of-the-art LLM software engineering agents demonstrate strong capabilities on traditional benchmarks (e.g., SWE-bench), their performance when diagnosing and resolving failures in complex, multi-agent frameworks (e.g., CrewAI, AutoCodeRover, AGiXT) remained unevaluated due to the lack of reproducible benchmark environments.
+                            </p>
                         </div>
-                        <p class="leading-relaxed">
-                            Comprises 50 reproducible agent issue resolution tasks with dedicated execution environments and failure-triggering test suites.
-                        </p>
+
+                        <!-- Solution -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Solution</h4>
+                            <p class="leading-relaxed dark:text-gothic-silver text-slate-600">
+                                Architected <strong>AgentIssue-Bench</strong>, a benchmark pipeline constructed over 500 engineering hours that standardizes 50 complex, real-world agent system bugs into isolated, executable task environments for rigorous SE agent benchmarking.
+                            </p>
+                        </div>
+
+                        <!-- Technical Architecture & Key Features -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; Key Architecture & Highlights</h4>
+                            <ul class="list-disc list-inside space-y-1 font-mono text-[11px] dark:text-gothic-silver text-slate-600">
+                                <li><strong>Dataset & Curation:</strong> Systematic analysis of 201 real-world GitHub issues across popular LLM agent frameworks, reproducing 50 verified failure environments.</li>
+                                <li><strong>Dockerized Execution Harness:</strong> Pre-packaged Docker container sandboxes for each task environment ensuring consistent, deterministic regression testing.</li>
+                                <li><strong>Automated Evaluation & Leaderboard:</strong> Automated evaluation pipeline with assertion-based test suites and a public leaderboard tracking agent resolution performance.</li>
+                            </ul>
+                        </div>
                     </div>
                 `
             },
             openbengkel: {
-                title: "OpenBengkel System Architecture",
+                title: "OpenBengkel — Full-Stack Workshop Management System",
                 body: `
-                    <div class="space-y-3 text-xs">
-                        <div class="pt-1">
-                            <a href="https://github.com/alfin06/OpenBengkel" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
-                                <i class="fa-brands fa-github"></i> Repository
-                            </a>
+                    <div class="space-y-4 text-xs">
+                        <!-- Badges & Action Link -->
+                        <div class="flex items-center justify-between border-b dark:border-gothic-border border-slate-200 pb-2">
+                            <span class="font-mono text-gothic-mauve">Full-Stack Web System</span>
+                            <a href="https://github.com/alfin06/AgentIssue-Bench" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all"><i class="fa-brands fa-github"></i> Repository</a>
                         </div>
-                        <p class="leading-relaxed">
-                            Full-stack workshop management platform designed for auto repair shops. Manages work orders, invoice generation, technician schedules, and inventory tracking.
-                        </p>
-                        <h4 class="font-bold font-mono text-[11px]">Architecture Specs:</h4>
-                        <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
-                            <li><strong>Backend:</strong> Laravel REST API & Eloquent ORM</li>
-                            <li><strong>Frontend:</strong> Vue 3 SPA + Inertia.js</li>
-                            <li><strong>Database:</strong> MySQL relational schema</li>
-                        </ul>
+
+                        <!-- Problem -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Problem</h4>
+                            <p class="leading-relaxed">Auto repair workshops often rely on fragmented paper tracking for repair orders, causing inventory discrepancies, invoice inaccuracies, and delayed technician dispatching.</p>
+                        </div>
+
+                        <!-- Solution -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Solution</h4>
+                            <p class="leading-relaxed">Architected a production-ready application using <strong>Laravel 10</strong>, <strong>Inertia.js</strong>, <strong>Vue 3</strong>, and <strong>MySQL</strong>. Built a single-page reactive dashboard with work order scheduling, inventory deduction triggers, and automated PDF invoice generation.</p>
+                        </div>
+
+                        <!-- Impact / Tech Specs -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; Key Architecture & Features</h4>
+                            <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
+                                <li>Reactive Vue 3 components driven by Inertia.js (no full page reloads)</li>
+                                <li>Relational schema for spare parts inventory & transaction history</li>
+                                <li>Role-based authorization for shop managers and technicians</li>
+                            </ul>
+                        </div>
                     </div>
                 `
             },
             portograph_ai: {
-                title: "PortoGraph AI",
+                title: "PortoGraph AI — Human-in-the-Loop Trading & Market Analytics Assistant",
                 body: `
-                    <div class="space-y-3 text-xs">
-                        <div class="pt-1">
-                            <a href="https://github.com/alfin06/portograph-ai" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                    <div class="space-y-4 text-xs">
+                        <!-- Header Badges & Action Link -->
+                        <div class="flex items-center justify-between border-b dark:border-gothic-border border-slate-200 pb-2">
+                            <span class="font-mono text-gothic-mauve font-bold">Side Project • AI & FinTech System</span>
+                            <a href="https://github.com/alfin06/portograph-ai" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-gothic-rose text-white font-mono text-[11px] hover:bg-gothic-mauve transition-all">
                                 <i class="fa-brands fa-github"></i> Repository
                             </a>
                         </div>
-                        <p class="leading-relaxed">
-                            A lightweight trading assistant combining Telegram interactive approvals, rule-based screening, and Generative AI for reflective analysis.
-                        </p>
-                        <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
-                            <li>Python backend engine</li>
-                            <li>PostgreSQL transaction log storage</li>
-                            <li>Telegram Bot API frontend integration</li>
-                        </ul>
+
+                        <!-- Problem Statement -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Problem</h4>
+                            <p class="leading-relaxed dark:text-gothic-silver text-slate-600">
+                                Retail traders often struggle to maintain disciplined execution, struggling with emotional trading impulses, fragmented portfolio tracking, and lack of systematic post-trade reflective analysis across volatile markets.
+                            </p>
+                        </div>
+
+                        <!-- Solution -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Solution</h4>
+                            <p class="leading-relaxed dark:text-gothic-silver text-slate-600">
+                                Engineered a human-in-the-loop AI trading assistant that combines automated rule-based market screening, real-time Telegram interactive approval workflows, and Generative AI-driven reflective post-trade reporting.
+                            </p>
+                        </div>
+
+                        <!-- Technical Architecture & Key Features -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; Key Architecture & Highlights</h4>
+                            <ul class="list-disc list-inside space-y-1 font-mono text-[11px] dark:text-gothic-silver text-slate-600">
+                                <li><strong>Backend Core:</strong> Modular Python engine executing quantitative screening rules and technical indicator monitoring algorithms.</li>
+                                <li><strong>Human-in-the-Loop Control:</strong> Integrated Telegram Bot API for real-time interactive signal alerts and mandatory trade execution confirmations.</li>
+                                <li><strong>Reflective Analytics & Storage:</strong> Utilizes LLM prompts to synthesize market sentiment and trade performance, logged persistently in a PostgreSQL schema.</li>
+                            </ul>
+                        </div>
                     </div>
                 `
             },
             studyreserve: {
-                title: "StudyReserve Platform",
-                body: `
-                    <div class="space-y-3 text-xs">
-                        <div class="pt-1">
-                            <a href="https://github.com/alfin06/seat-reservation" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+            title: "StudyReserve — Smart Campus Seat & Room Reservation Platform",
+            body: `
+                    <div class="space-y-4 text-xs">
+                        <!-- Header Badges & Action Links -->
+                        <div class="flex items-center justify-between border-b dark:border-gothic-border border-slate-200 pb-2">
+                            <span class="font-mono text-gothic-mauve font-bold">Class Project • Project Manager Role</span>
+                            <a href="https://github.com/alfin06/seat-reservation" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-gothic-rose text-white font-mono text-[11px] hover:bg-gothic-mauve transition-all">
                                 <i class="fa-brands fa-github"></i> Repository
                             </a>
                         </div>
-                        <p class="leading-relaxed">
-                            Classroom & study space reservation system featuring interactive layout mapping and conflict-free booking workflows.
-                        </p>
-                        <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
-                            <li>Django REST backend</li>
-                            <li>Vue 3 client application</li>
-                            <li>MySQL database storage</li>
-                        </ul>
+
+                        <!-- Problem Statement -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Problem</h4>
+                            <p class="leading-relaxed dark:text-gothic-silver text-slate-600">
+                                Students frequently encounter overcrowded campus libraries and study halls due to uncoordinated seat utilization and double-booking conflicts in shared classroom spaces.
+                            </p>
+                        </div>
+
+                        <!-- Solution -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Solution</h4>
+                            <p class="leading-relaxed dark:text-gothic-silver text-slate-600">
+                                Architected an interactive web platform enabling real-time classroom map visualization, conflict-free seat allocation, and automated booking window management.
+                            </p>
+                        </div>
+
+                        <!-- Technical Architecture & Key Features -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; Key Architecture & Highlights</h4>
+                            <ul class="list-disc list-inside space-y-1 font-mono text-[11px] dark:text-gothic-silver text-slate-600">
+                                <li><strong>Backend Engine:</strong> Python & Django REST Framework with atomic transaction locks to eliminate concurrent double-bookings.</li>
+                                <li><strong>Frontend Client:</strong> Single-page application built with Vue 3 for interactive seat map rendering and real-time availability filters.</li>
+                                <li><strong>Database Layer:</strong> Relational MySQL schema optimizing time-slot indexing and seat occupancy status updates.</li>
+                            </ul>
+                        </div>
                     </div>
                 `
             },
             admission_system: {
-                title: "SDH Admission System",
+                title: "SDH Admission Portal — Multi-Campus Online Student Registration Platform",
                 body: `
-                    <div class="space-y-3 text-xs">
-                        <div class="pt-1">
-                            <a href="https://sdh.or.id/registrasi/" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                    <div class="space-y-4 text-xs">
+                        <!-- Header Badges & Action Link -->
+                        <div class="flex items-center justify-between border-b dark:border-gothic-border border-slate-200 pb-2">
+                            <span class="font-mono text-gothic-mauve font-bold">Production App • IT Supervisor Role</span>
+                            <a href="https://sdh.or.id/registrasi/" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-gothic-rose text-white font-mono text-[11px] hover:bg-gothic-mauve transition-all">
                                 <i class="fa-solid fa-globe"></i> Website
                             </a>
                         </div>
-                        <p class="leading-relaxed">
-                            Centralized admissions portal handling nationwide student applications for SDH schools across Indonesia.
-                        </p>
-                        <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
-                            <li>Laravel web framework</li>
-                            <li>MySQL database</li>
-                            <li>Hosted on Microsoft Azure</li>
-                        </ul>
+
+                        <!-- Problem Statement -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Problem</h4>
+                            <p class="leading-relaxed dark:text-gothic-silver text-slate-600">
+                                Sekolah Dian Harapan (SDH) campuses across Indonesia previously operated decentralized, paper-heavy admission workflows. This led to fragmented applicant data, delayed parent notifications, and high administrative overhead during peak enrollment seasons.
+                            </p>
+                        </div>
+
+                        <!-- Solution -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Solution</h4>
+                            <p class="leading-relaxed dark:text-gothic-silver text-slate-600">
+                                Engineered a unified multi-tenant admissions portal supporting prospective students and parents nationwide. The system digitizes the entire lifecycle—from initial registration and document submission to interview scheduling and automated acceptance status notifications.
+                            </p>
+                        </div>
+
+                        <!-- Technical Architecture & Key Features -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; Key Architecture & Highlights</h4>
+                            <ul class="list-disc list-inside space-y-1 font-mono text-[11px] dark:text-gothic-silver text-slate-600">
+                                <li><strong>Application Core:</strong> Built on PHP / Laravel MVC, implementing secure role-based access control (RBAC) for regional admission officers and central administrators.</li>
+                                <li><strong>Data & Storage:</strong> Relational MySQL database schema managed via Eloquent ORM, optimized for encrypted document handling and audit logging.</li>
+                                <li><strong>Cloud Deployment:</strong> Scaled on Microsoft Azure infrastructure to reliably handle peak traffic spikes during open enrollment periods.</li>
+                            </ul>
+                        </div>
                     </div>
                 `
             },
             course_recommender: {
-                title: "ABeka Course Recommender",
+                title: "Abeka Course Recommender",
                 body: `
-                    <div class="space-y-3 text-xs">
-                        <div class="pt-1">
-                            <a href="http://athome.abeka.com/" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-gothic-rose text-white font-mono hover:bg-gothic-mauve transition-all">
+                    <div class="space-y-4 text-xs">
+                        <!-- Header Badges & Action Link -->
+                        <div class="flex items-center justify-between border-b dark:border-gothic-border border-slate-200 pb-2">
+                            <span class="font-mono text-gothic-mauve font-bold">Production App • IT Programmer Role</span>
+                            <a href="http://athome.abeka.com/" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-gothic-rose text-white font-mono text-[11px] hover:bg-gothic-mauve transition-all">
                                 <i class="fa-solid fa-globe"></i> Website
                             </a>
                         </div>
-                        <p class="leading-relaxed">
-                            Course recommendation system built for Abeka curriculum, calculating optimal course paths based on historical student records and goals.
-                        </p>
-                        <ul class="list-disc list-inside space-y-1 font-mono text-[11px]">
-                            <li>ASP.NET / C# application</li>
-                            <li>Oracle Database with PL/SQL logic</li>
-                        </ul>
+
+                        <!-- Problem Statement -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Problem</h4>
+                            <p class="leading-relaxed dark:text-gothic-silver text-slate-600">
+                                Parents and academic advisors navigating the extensive Abeka homeschooling curriculum struggled to determine optimal course sequences based on a student's prior academic history, grade level requirements, and target educational milestones.
+                            </p>
+                        </div>
+
+                        <!-- Solution -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; The Solution</h4>
+                            <p class="leading-relaxed dark:text-gothic-silver text-slate-600">
+                                Developed an intelligent web recommendation tool that analyzes individual student records and automatically generates customized course roadmaps, ensuring prerequisites are met while optimizing learning progression.
+                            </p>
+                        </div>
+
+                        <!-- Technical Architecture & Key Features -->
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white uppercase font-mono text-[11px] mb-1 text-gothic-mauve">&gt; Key Architecture & Highlights</h4>
+                            <ul class="list-disc list-inside space-y-1 font-mono text-[11px] dark:text-gothic-silver text-slate-600">
+                                <li><strong>Application Stack:</strong> Built using ASP.NET and C# with jQuery for interactive frontend form handling and real-time guidance.</li>
+                                <li><strong>Database & Logic:</strong> Powered by an Oracle Database utilizing stored procedures and complex PL/SQL business logic for rapid evaluation of academic prerequisites.</li>
+                                <li><strong>Integration:</strong> Seamlessly connected with existing Abeka student information databases for history lookup and automated enrollment workflows.</li>
+                            </ul>
+                        </div>
                     </div>
                 `
             }
