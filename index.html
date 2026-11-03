@@ -247,6 +247,35 @@
         #timelineFill { transform-origin: top; transform: scaleY(0); }
         .timeline-dot { transition: background-color 0.4s, box-shadow 0.4s; }
         .timeline-item.is-visible .timeline-dot { background: rgb(var(--accent)); box-shadow: 0 0 0 6px rgb(var(--accent) / 0.15); }
+        .timeline-item { cursor: pointer; }
+        .timeline-item.is-current .tilt { border-color: rgb(var(--accent) / 0.6); box-shadow: 0 18px 40px -24px rgb(var(--accent) / 0.55); }
+        .timeline-item.is-current .timeline-dot { box-shadow: 0 0 0 8px rgb(var(--accent) / 0.25); }
+
+        /* Journey globe */
+        #journeyGlobe .g-sphere { fill: rgb(var(--surface)); stroke: rgb(var(--accent) / 0.35); stroke-width: 1.5; }
+        #journeyGlobe .g-graticule { fill: none; stroke: rgb(var(--line)); stroke-width: 0.6; }
+        #journeyGlobe .g-land { fill: rgb(var(--muted) / 0.28); stroke: rgb(var(--muted) / 0.5); stroke-width: 0.5; }
+        #journeyGlobe .g-arc { fill: none; stroke: rgb(var(--accent)); stroke-width: 2.5; stroke-linecap: round; }
+        #journeyGlobe .g-arc-glow { stroke-width: 9; stroke-opacity: 0.18; }
+        #journeyGlobe .g-arc.is-remote { stroke-dasharray: 2 7; }
+        #journeyGlobe .g-pin { fill: rgb(var(--accent)); stroke: rgb(var(--surface)); stroke-width: 2.5; }
+        #journeyGlobe .g-pin-pulse { fill: rgb(var(--accent)); transform-box: fill-box; transform-origin: center; animation: pin-pulse 2s ease-out infinite; }
+        #journeyGlobe .g-label { font: 600 17px Inter, sans-serif; fill: rgb(var(--ink)); paint-order: stroke; stroke: rgb(var(--surface)); stroke-width: 5px; stroke-linejoin: round; }
+        @keyframes pin-pulse { from { transform: scale(1); opacity: 0.6; } to { transform: scale(3.4); opacity: 0; } }
+        @media (pointer: fine) {
+            #journeyGlobe.is-ready { cursor: grab; }
+            #journeyGlobe.is-ready:active { cursor: grabbing; }
+            .globe-hint { display: inline; }
+        }
+        /* The globe renders small on phones: the chip below names the place, so drop the label and thicken marks */
+        @media (max-width: 639px) {
+            #journeyGlobe .g-label { display: none !important; }
+            #journeyGlobe .g-pin, #journeyGlobe .g-pin-pulse { r: 12px; }
+            #journeyGlobe .g-arc { stroke-width: 5; }
+            #journeyGlobe .g-arc-glow { stroke-width: 14; }
+        }
+        .globe-failed .journey-globe-wrap { display: none; }
+        .globe-failed .journey-grid { display: block; }
 
         /* Modal */
         .modal-backdrop { opacity: 0; transition: opacity 0.25s; }
@@ -434,10 +463,10 @@
                 <div class="grid lg:grid-cols-5 gap-6">
                     <div class="reveal lg:col-span-3 space-y-4 text-base sm:text-[17px] leading-relaxed">
                         <p>
-                            I'm a Master's student in Electronic Information at <a href="https://www.fudan.edu.cn/en/" target="_blank" rel="noopener" class="text-ink font-semibold hover:text-accent transition-colors">Fudan University</a>. My research sits where software engineering meets AI: <strong class="text-ink font-semibold">Intelligent Software Engineering, AI4SE, SE4AI, and software testing &amp; debugging</strong>. Lately that means asking how well LLM agents can find and fix bugs in other agent systems, and building the benchmarks to measure it.
+                            I'm a Master's student in Electronic and Information Engineering at <a href="https://www.fudan.edu.cn/en/" target="_blank" rel="noopener" class="text-ink font-semibold hover:text-accent transition-colors">Fudan University</a>. My research sits where software engineering meets AI: <strong class="text-ink font-semibold">Intelligent Software Engineering, AI4SE, SE4AI, and software testing &amp; debugging</strong>. Lately that means asking how well LLM agents can find and fix bugs in other agent systems, and building the benchmarks to measure it.
                         </p>
                         <p>
-                            Before research, I shipped software for real users. I was an IT Application Development Supervisor at <a href="https://www.linkedin.com/company/pelita-harapan-group" target="_blank" rel="noopener" class="text-ink font-semibold hover:text-accent transition-colors">Pelita Harapan Group</a> and an IT Programmer at <a href="https://abeka.com/" target="_blank" rel="noopener" class="text-ink font-semibold hover:text-accent transition-colors">Abeka</a>. I hold a B.S. in Computer Information Systems with a minor in Mathematics from <a href="https://pcci.edu/" target="_blank" rel="noopener" class="text-ink font-semibold hover:text-accent transition-colors">Pensacola Christian College</a>.
+                            Before research, I shipped software for real users. I was an IT Programmer at <a href="https://pcci.edu/" target="_blank" rel="noopener" class="text-ink font-semibold hover:text-accent transition-colors">Pensacola Christian College</a>, an IT Application Development Supervisor / Software Engineer at <a href="https://www.linkedin.com/company/pelita-harapan-group" target="_blank" rel="noopener" class="text-ink font-semibold hover:text-accent transition-colors">Pelita Harapan Group</a>, and a remote programming tutor at ITGENIO Coding School. I hold a B.S. in Computer Information Systems with a minor in Mathematics from <a href="https://pcci.edu/" target="_blank" rel="noopener" class="text-ink font-semibold hover:text-accent transition-colors">Pensacola Christian College</a>.
                         </p>
                         <div class="flex flex-wrap gap-2 pt-2">
                             <span class="px-3 py-1.5 rounded-full bg-accent/10 text-accent text-[13px] font-mono">AI4SE</span>
@@ -482,73 +511,94 @@
                 </div>
             </section>
 
-            <!-- Experience & Education Timeline -->
+            <!-- Experience & Education Journey -->
             <section id="experience">
                 <div class="section-head reveal">
                     <span class="font-mono text-accent text-sm sm:text-base">02.</span>
                     <h2 class="text-2xl sm:text-3xl font-bold text-ink tracking-tight">Experience &amp; Education</h2>
                     <div class="rule"></div>
                 </div>
+                <p class="reveal -mt-4 mb-8 text-[15px] text-muted">From Florida to Shanghai. Scroll to follow the journey.</p>
 
-                <!-- TODO: add start/end dates for each role in the <time> tags below -->
-                <ol id="timeline" class="relative space-y-4">
-                    <div class="absolute left-[11px] top-3 bottom-3 w-0.5 bg-line rounded-full" aria-hidden="true">
-                        <div id="timelineFill" class="w-full h-full bg-accent rounded-full"></div>
+                <div id="journey" class="journey-grid lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12">
+                    <!-- Globe (loaded lazily; the cards below work without it) -->
+                    <div class="journey-globe-wrap sticky top-16 lg:top-28 z-10 lg:self-start -mx-4 px-4 py-3 mb-4 sm:mx-0 sm:px-0 bg-canvas/85 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none lg:py-0 lg:mb-0">
+                        <div class="relative mx-auto w-full max-w-[180px] sm:max-w-[260px] lg:max-w-[440px] aspect-square">
+                            <div class="absolute inset-[10%] rounded-full bg-accent/15 blur-3xl" aria-hidden="true"></div>
+                            <svg id="journeyGlobe" viewBox="0 0 500 500" class="relative w-full h-full" role="img" aria-label="Globe tracing Alfin's journey: Pensacola, Florida, then Tangerang, Indonesia, remote work for a company in Edinburgh, UK, and Shanghai, China"></svg>
+                            <div id="globeLoading" class="absolute inset-0 flex items-center justify-center text-[13px] font-mono text-muted" aria-hidden="true">Loading map…</div>
+                        </div>
+                        <div class="mt-2 lg:mt-5 flex items-center justify-center gap-2 text-[13px] font-mono">
+                            <span id="globePlace" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface border border-line text-ink" aria-live="polite">
+                                <i class="fa-solid fa-location-dot text-accent"></i><span>Pensacola, FL, USA</span>
+                            </span>
+                            <span class="globe-hint hidden text-muted">drag to spin</span>
+                        </div>
                     </div>
 
-                    <li class="timeline-item reveal relative pl-10 sm:pl-12">
-                        <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
-                        <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
-                            <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
-                                <div>
-                                    <h3 class="text-lg sm:text-xl font-bold text-ink">M.S. in Electronic Information</h3>
-                                    <div class="text-accent font-medium"><a href="https://www.fudan.edu.cn/en/" target="_blank" rel="noopener" class="hover:underline">Fudan University</a> · Shanghai, China</div>
-                                    <div class="mt-1.5 inline-flex items-center gap-1.5 text-sm text-muted"><i class="fa-solid fa-award text-accent"></i> Chinese Government Scholarship Recipient</div>
-                                </div>
-                                <time class="text-[13px] font-mono text-muted pt-1">Expected Jun 2027</time>
-                            </div>
+                    <!-- Stops, oldest first; data-place / data-arc-from drive the globe -->
+                    <ol id="timeline" class="relative space-y-4">
+                        <div class="absolute left-[11px] top-3 bottom-3 w-0.5 bg-line rounded-full" aria-hidden="true">
+                            <div id="timelineFill" class="w-full h-full bg-accent rounded-full"></div>
                         </div>
-                    </li>
 
-                    <li class="timeline-item reveal relative pl-10 sm:pl-12">
-                        <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
-                        <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
-                            <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
-                                <div>
-                                    <h3 class="text-lg sm:text-xl font-bold text-ink">IT Application Development Supervisor / Software Engineer</h3>
-                                    <div class="text-accent font-medium"><a href="https://www.linkedin.com/company/pelita-harapan-group" target="_blank" rel="noopener" class="hover:underline">Pelita Harapan Group</a> · Indonesia</div>
-                                </div>
-                                <time class="text-[13px] font-mono text-muted pt-1"></time>
+                        <li class="timeline-item reveal relative pl-10 sm:pl-12" data-place="pensacola">
+                            <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
+                            <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
+                                <div class="flex items-center gap-2 text-[13px] font-mono text-muted"><i class="fa-solid fa-graduation-cap text-accent"></i><time>Sep 2013 – May 2017</time></div>
+                                <h3 class="mt-1.5 text-lg sm:text-xl font-bold text-ink">B.S. in Computer Information Systems</h3>
+                                <div class="text-sm text-muted">Minor in Mathematics</div>
+                                <div class="mt-1 text-accent font-medium"><a href="https://pcci.edu/" target="_blank" rel="noopener" class="hover:underline">Pensacola Christian College</a> · Pensacola, FL, USA</div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
 
-                    <li class="timeline-item reveal relative pl-10 sm:pl-12">
-                        <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
-                        <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
-                            <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
-                                <div>
-                                    <h3 class="text-lg sm:text-xl font-bold text-ink">IT Programmer</h3>
-                                    <div class="text-accent font-medium"><a href="https://abeka.com/" target="_blank" rel="noopener" class="hover:underline">Abeka</a> · Pensacola, FL, USA</div>
-                                </div>
-                                <time class="text-[13px] font-mono text-muted pt-1"></time>
+                        <li class="timeline-item reveal relative pl-10 sm:pl-12" data-place="pensacola">
+                            <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
+                            <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
+                                <div class="flex items-center gap-2 text-[13px] font-mono text-muted"><i class="fa-solid fa-briefcase text-accent"></i><time>Jul 2017 – May 2020</time></div>
+                                <h3 class="mt-1.5 text-lg sm:text-xl font-bold text-ink">IT Programmer</h3>
+                                <div class="mt-1 text-accent font-medium"><a href="https://pcci.edu/" target="_blank" rel="noopener" class="hover:underline">Pensacola Christian College</a> · Pensacola, FL, USA</div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
 
-                    <li class="timeline-item reveal relative pl-10 sm:pl-12">
-                        <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
-                        <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
-                            <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
-                                <div>
-                                    <h3 class="text-lg sm:text-xl font-bold text-ink">B.S. in Computer Information Systems</h3>
-                                    <div class="text-accent font-medium"><a href="https://pcci.edu/" target="_blank" rel="noopener" class="hover:underline">Pensacola Christian College</a> · Pensacola, FL, USA</div>
-                                </div>
-                                <time class="text-[13px] font-mono text-muted pt-1"></time>
+                        <li class="timeline-item reveal relative pl-10 sm:pl-12" data-place="tangerang" data-arc-from="pensacola">
+                            <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
+                            <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
+                                <div class="flex items-center gap-2 text-[13px] font-mono text-muted"><i class="fa-solid fa-briefcase text-accent"></i><time>Jul 2020 – Apr 2023</time></div>
+                                <h3 class="mt-1.5 text-lg sm:text-xl font-bold text-ink">IT Application Development Supervisor / Software Engineer</h3>
+                                <div class="mt-1 text-accent font-medium"><a href="https://www.linkedin.com/company/pelita-harapan-group" target="_blank" rel="noopener" class="hover:underline">Pelita Harapan Group</a> · Tangerang, Indonesia</div>
                             </div>
-                        </div>
-                    </li>
-                </ol>
+                        </li>
+
+                        <li class="timeline-item reveal relative pl-10 sm:pl-12" data-place="edinburgh" data-arc-from="tangerang" data-remote="true">
+                            <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
+                            <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
+                                <div class="flex items-center gap-2 text-[13px] font-mono text-muted"><i class="fa-solid fa-briefcase text-accent"></i><time>Oct 2023 – Sep 2024</time><span class="ms-1 px-2 py-0.5 rounded-full bg-accent/10 text-accent text-[12px]"><i class="fa-solid fa-house-laptop me-1"></i>Remote</span></div>
+                                <h3 class="mt-1.5 text-lg sm:text-xl font-bold text-ink">Programming Tutor</h3>
+                                <div class="mt-1 text-accent font-medium">ITGENIO Coding School · Edinburgh, UK (HQ)</div>
+                            </div>
+                        </li>
+
+                        <li class="timeline-item reveal relative pl-10 sm:pl-12" data-place="shanghai" data-arc-from="tangerang">
+                            <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
+                            <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
+                                <div class="flex items-center gap-2 text-[13px] font-mono text-muted"><i class="fa-solid fa-graduation-cap text-accent"></i><time>Sep 2024 – Jun 2027 (expected)</time></div>
+                                <h3 class="mt-1.5 text-lg sm:text-xl font-bold text-ink">M.S. in Electronic and Information Engineering</h3>
+                                <div class="mt-1 text-accent font-medium"><a href="https://www.fudan.edu.cn/en/" target="_blank" rel="noopener" class="hover:underline">Fudan University</a> · Shanghai, China</div>
+                                <div class="mt-1.5 inline-flex items-center gap-1.5 text-sm text-muted"><i class="fa-solid fa-award text-accent"></i> Chinese Government Scholarship Recipient</div>
+                            </div>
+                        </li>
+
+                        <li class="timeline-item reveal relative pl-10 sm:pl-12" data-place="shanghai">
+                            <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
+                            <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
+                                <div class="flex items-center gap-2 text-[13px] font-mono text-muted"><i class="fa-solid fa-flask text-accent"></i><time>Oct 2024 – Present</time></div>
+                                <h3 class="mt-1.5 text-lg sm:text-xl font-bold text-ink">Graduate Student Research Assistant</h3>
+                                <div class="mt-1 text-accent font-medium"><a href="https://www.fudan.edu.cn/en/" target="_blank" rel="noopener" class="hover:underline">Fudan University</a> · Shanghai, China</div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
             </section>
 
             <!-- Research & Publications -->
@@ -1571,7 +1621,7 @@
             whoami: () => [
                 `${hl('Alfin Wijaya Rahardja')}: M.S. student @ Fudan University.`,
                 'Researching SE x AI: debugging, testing, and evaluating LLM SE agents.',
-                dim('Previously shipped production systems at Pelita Harapan Group & Abeka.')
+                dim('Previously shipped production systems at Pelita Harapan Group & Pensacola Christian College.')
             ],
             research: () => [
                 `${hl('[NeurIPS 2025]')} Can Agents Fix Agent Issues? ${dim('(co-first author)')}`,
@@ -1585,10 +1635,12 @@
             ],
             projects: () => [...document.querySelectorAll('.project-card')].map(c => `• ${hl(c.dataset.title)}`),
             experience: () => [
-                `${hl('Fudan University')}: M.S. Electronic Information ${dim('(expected Jun 2027)')}`,
-                `${hl('Pelita Harapan Group')}: IT Application Development Supervisor`,
-                `${hl('Abeka')}: IT Programmer`,
-                `${hl('Pensacola Christian College')}: B.S. Computer Information Systems, minor in Math`
+                `${dim('2024–now ')} ${hl('Fudan University')}: Graduate Student Research Assistant`,
+                `${dim('2024–2027')} ${hl('Fudan University')}: M.S. Electronic and Information Engineering`,
+                `${dim('2023–2024')} ${hl('ITGENIO Coding School')}: Programming Tutor ${dim('(remote)')}`,
+                `${dim('2020–2023')} ${hl('Pelita Harapan Group')}: IT Application Development Supervisor / Software Engineer`,
+                `${dim('2017–2020')} ${hl('Pensacola Christian College')}: IT Programmer`,
+                `${dim('2013–2017')} ${hl('Pensacola Christian College')}: B.S. Computer Information Systems, minor in Math`
             ],
             skills: () => [
                 `${dim('lang  ')} Python · PHP · C# · JavaScript`,
@@ -1745,6 +1797,183 @@
             }).catch(() => {});
         }
 
+        // --- Experience Journey Globe ---
+        const PLACES = {
+            pensacola: { label: 'Pensacola, FL, USA', coords: [-87.21, 30.47] },
+            tangerang: { label: 'Tangerang, Indonesia', coords: [106.61, -6.22] },
+            edinburgh: { label: 'Edinburgh, UK · remote', coords: [-3.19, 55.95] },
+            shanghai: { label: 'Shanghai, China', coords: [121.50, 31.30] }
+        };
+        const GLOBE_LIBS = [
+            'https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js'
+        ];
+        const LAND_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-110m.json';
+
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+
+        // Load D3 and the map only when the section gets close, so the first paint stays light
+        function initJourneyGlobe() {
+            const section = document.getElementById('experience');
+            new IntersectionObserver(([entry], observer) => {
+                if (!entry.isIntersecting) return;
+                observer.disconnect();
+                Promise.all([...GLOBE_LIBS.map(loadScript), fetch(LAND_URL).then(res => res.json())])
+                    .then(results => buildJourneyGlobe(results[results.length - 1]))
+                    .catch(() => section.classList.add('globe-failed'));
+            }, { rootMargin: '800px 0px' }).observe(section);
+        }
+
+        function buildJourneyGlobe(world) {
+            const svg = d3.select('#journeyGlobe').classed('is-ready', true);
+            const items = [...document.querySelectorAll('#timeline .timeline-item')];
+            const stops = items.map(item => ({
+                place: item.dataset.place,
+                from: item.dataset.arcFrom || null,
+                remote: item.dataset.remote === 'true'
+            }));
+            const placeChip = document.querySelector('#globePlace span');
+            document.getElementById('globeLoading').remove();
+
+            const projection = d3.geoOrthographic().scale(236).translate([250, 250]).clipAngle(90).precision(0.5);
+            const path = d3.geoPath(projection);
+            svg.append('path').datum({ type: 'Sphere' }).attr('class', 'g-sphere');
+            svg.append('path').datum(d3.geoGraticule10()).attr('class', 'g-graticule');
+            svg.append('path').datum(topojson.feature(world, world.objects.land)).attr('class', 'g-land');
+            const arcLayer = svg.append('g');
+            const pinLayer = svg.append('g');
+            const label = svg.append('text').attr('class', 'g-label').attr('text-anchor', 'middle');
+
+            // One arc for every stop that moved somewhere new
+            const arcs = stops.flatMap((stop, i) => {
+                if (!stop.from) return [];
+                const from = PLACES[stop.from].coords;
+                const to = PLACES[stop.place].coords;
+                return [{
+                    index: i,
+                    progress: 0,
+                    interpolate: d3.geoInterpolate(from, to),
+                    glow: arcLayer.append('path').attr('class', 'g-arc g-arc-glow'),
+                    line: arcLayer.append('path').attr('class', `g-arc${stop.remote ? ' is-remote' : ''}`)
+                }];
+            });
+
+            const pins = {};
+            new Set(stops.map(s => s.place)).forEach(key => {
+                const g = pinLayer.append('g').style('display', 'none');
+                g.append('circle').attr('class', 'g-pin-pulse').attr('r', 6);
+                g.append('circle').attr('class', 'g-pin').attr('r', 6);
+                pins[key] = g;
+            });
+
+            // Tilt latitude a little less than the target so the pin sits slightly above center
+            const viewOf = (key) => [-PLACES[key].coords[0], -PLACES[key].coords[1] * 0.7];
+            let rotation = viewOf(stops[0].place);
+            let active = -1;
+            let tween = null;
+
+            const arcCoordinates = (arc) => {
+                const steps = Math.max(2, Math.round(60 * arc.progress));
+                return Array.from({ length: steps + 1 }, (_, k) => arc.interpolate((k / steps) * arc.progress));
+            };
+            const isFacing = (coords) => d3.geoDistance(coords, [-rotation[0], -rotation[1]]) < Math.PI / 2 - 0.05;
+
+            function render() {
+                projection.rotate(rotation);
+                svg.selectAll('.g-sphere, .g-graticule, .g-land').attr('d', path);
+
+                arcs.forEach(arc => {
+                    const d = arc.progress > 0 ? path({ type: 'LineString', coordinates: arcCoordinates(arc) }) : null;
+                    arc.glow.attr('d', d);
+                    arc.line.attr('d', d);
+                });
+
+                const visited = new Set(stops.slice(0, active + 1).map(s => s.place));
+                const current = stops[Math.max(active, 0)].place;
+                Object.entries(pins).forEach(([key, g]) => {
+                    const coords = PLACES[key].coords;
+                    if (!visited.has(key) || !isFacing(coords)) { g.style('display', 'none'); return; }
+                    const [x, y] = projection(coords);
+                    g.style('display', null).attr('transform', `translate(${x},${y})`);
+                    g.select('.g-pin-pulse').style('display', key === current ? null : 'none');
+                });
+
+                const coords = PLACES[current].coords;
+                if (isFacing(coords)) {
+                    const [x, y] = projection(coords);
+                    label.style('display', null).attr('x', x).attr('y', y - 20).text(PLACES[current].label);
+                } else {
+                    label.style('display', 'none');
+                }
+            }
+
+            function finishTween() {
+                if (!tween) return;
+                tween.stop();
+                tween = null;
+                arcs.forEach(arc => { if (arc.index <= active) arc.progress = 1; });
+            }
+
+            function goTo(index) {
+                if (index === active) return;
+                finishTween();
+                active = index;
+                items.forEach((item, k) => item.classList.toggle('is-current', k === index));
+                placeChip.textContent = PLACES[stops[index].place].label;
+                arcs.forEach(arc => { if (arc.index > index) arc.progress = 0; });
+
+                const target = viewOf(stops[index].place);
+                if (reduceMotion) {
+                    rotation = target;
+                    arcs.forEach(arc => { if (arc.index <= index) arc.progress = 1; });
+                    render();
+                    return;
+                }
+
+                const start = rotation.slice();
+                const dLon = ((target[0] - start[0] + 540) % 360) - 180;  // shortest way around
+                const dLat = target[1] - start[1];
+                const growing = arcs.filter(arc => arc.index <= index && arc.progress < 1);
+                const startProgress = growing.map(arc => arc.progress);
+                tween = d3.timer(elapsed => {
+                    const t = Math.min(elapsed / 1500, 1);
+                    const e = d3.easeCubicInOut(t);
+                    rotation = [start[0] + dLon * e, start[1] + dLat * e];
+                    growing.forEach((arc, k) => { arc.progress = startProgress[k] + (1 - startProgress[k]) * e; });
+                    render();
+                    if (t === 1) { tween.stop(); tween = null; }
+                });
+            }
+
+            // The card crossing the middle of the screen drives the globe
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => { if (entry.isIntersecting) goTo(items.indexOf(entry.target)); });
+            }, { rootMargin: '-50% 0px -45% 0px' });
+            items.forEach((item, i) => {
+                observer.observe(item);
+                item.addEventListener('click', (e) => { if (!e.target.closest('a')) goTo(i); });
+            });
+
+            if (finePointer) {
+                svg.call(d3.drag()
+                    .on('start', finishTween)
+                    .on('drag', (event) => {
+                        rotation = [rotation[0] + event.dx * 0.35, Math.max(-75, Math.min(75, rotation[1] - event.dy * 0.35))];
+                        render();
+                    }));
+            }
+
+            goTo(0);
+        }
+
         // --- Mobile Menu ---
         function setMobileMenu(open) {
             const menu = document.getElementById('mobileMenu');
@@ -1783,6 +2012,7 @@
         initCopyEmail();
         initCvLinks();
         initMobileMenu();
+        initJourneyGlobe();
         loopTypewriter();
     </script>
 </body>
