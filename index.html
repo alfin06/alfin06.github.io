@@ -239,9 +239,9 @@
         #skillResult.is-updating { opacity: 0; transform: translateY(6px); }
 
         /* Collapsible (abstracts) */
-        .collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s var(--ease-out); }
-        .collapse[data-open="true"] { grid-template-rows: 1fr; }
-        .collapse > div { overflow: hidden; }
+        .collapsible { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s var(--ease-out); }
+        .collapsible[data-open="true"] { grid-template-rows: 1fr; }
+        .collapsible > div { overflow: hidden; }
 
         /* Timeline */
         #timelineFill { transform-origin: top; transform: scaleY(0); }
@@ -276,6 +276,24 @@
         }
         .globe-failed .journey-globe-wrap { display: none; }
         .globe-failed .journey-grid { display: block; }
+
+        /* Benchmark explorer */
+        .bench-tab[aria-selected="true"] { background: rgb(var(--accent)); color: rgb(var(--on-accent)); }
+        .chip[aria-pressed="true"] { border-color: rgb(var(--accent)); color: rgb(var(--ink)); background: rgb(var(--accent) / 0.12); }
+        .bar-track { background: rgb(var(--raised)); border-radius: 4px; }
+        .bar-fill { height: 100%; width: 0; background: rgb(var(--accent)); border-radius: 0 4px 4px 0; transition: width 0.9s var(--ease-out); }
+        .lb-row { transition: opacity 0.35s; }
+        .lb-row.is-dimmed { opacity: 0.25; }
+        .lb-row:hover .bar-fill, .cat-row:hover .bar-fill { filter: brightness(1.12); }
+        .sub-list { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s var(--ease-out); }
+        .sub-list[data-open="true"] { grid-template-rows: 1fr; }
+        .sub-list > div { overflow: hidden; }
+        .cat-row[aria-expanded="true"] .chev { transform: rotate(90deg); }
+        .switch { width: 36px; height: 20px; border-radius: 999px; background: rgb(var(--line)); position: relative; transition: background 0.25s; }
+        .switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: rgb(var(--surface)); transition: transform 0.25s var(--ease-out); }
+        [aria-checked="true"] .switch { background: rgb(var(--accent)); }
+        [aria-checked="true"] .switch::after { transform: translateX(16px); }
+        #benchTip { transition: opacity 0.15s; }
 
         /* Modal */
         .modal-backdrop { opacity: 0; transition: opacity 0.25s; }
@@ -611,7 +629,7 @@
 
                 <div class="space-y-4" data-stagger>
                     <!-- Publication: NeurIPS 2025 -->
-                    <article class="reveal tilt rounded-2xl border border-line bg-surface p-5 sm:p-7">
+                    <article class="reveal rounded-2xl border border-line bg-surface p-5 sm:p-7">
                         <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
                             <div class="sm:w-28 flex-shrink-0 flex sm:flex-col items-center sm:items-start gap-2">
                                 <span class="px-2.5 py-1 rounded-md bg-accent text-on-accent text-[12px] font-mono font-semibold">NeurIPS</span>
@@ -630,11 +648,52 @@
                                         Abstract <i class="fa-solid fa-chevron-down text-[10px] transition-transform"></i>
                                     </button>
                                 </div>
-                                <div id="abstractNeurips" class="collapse" data-open="false">
+                                <div id="abstractNeurips" class="collapsible" data-open="false">
                                     <div>
                                         <p class="mt-4 pt-4 border-t border-line text-[15px] leading-relaxed">
                                             LLM-based agent systems are prone to their own unique bugs. Recent SE agents do well on traditional software, but how well do they handle issues in agent systems? We manually analyzed 201 real-world agent issues and built <strong class="text-ink">AgentIssue-Bench</strong> to evaluate state-of-the-art SE agents, finding very low resolution rates (0.67%–4.67%).
                                         </p>
+
+                                        <!-- AgentIssue-Bench results: leaderboard + issue categories -->
+                                        <div id="benchExplorer" class="relative mt-6 pt-5 border-t border-line">
+                                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                                                <div class="text-[13px] font-mono font-semibold uppercase tracking-wider text-accent">Results at a glance</div>
+                                                <div class="inline-flex self-start sm:self-auto p-1 rounded-full bg-raised border border-line text-[13px] font-mono" role="tablist" aria-label="Benchmark views">
+                                                    <button type="button" role="tab" id="tabLb" aria-selected="true" aria-controls="panelLb" class="bench-tab px-4 h-9 rounded-full text-body transition-colors">Leaderboard</button>
+                                                    <button type="button" role="tab" id="tabCat" aria-selected="false" aria-controls="panelCat" class="bench-tab px-4 h-9 rounded-full text-body transition-colors">What breaks</button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Leaderboard -->
+                                            <div id="panelLb" role="tabpanel" aria-labelledby="tabLb">
+                                                <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+                                                    <div class="flex flex-wrap gap-2 text-[13px] font-mono" role="group" aria-label="Filter by model">
+                                                        <button type="button" class="chip px-3 h-9 rounded-full border border-line text-body" data-model="all" aria-pressed="true">All models</button>
+                                                        <button type="button" class="chip px-3 h-9 rounded-full border border-line text-body" data-model="Claude 3.5 Sonnet" aria-pressed="false">Claude 3.5 Sonnet</button>
+                                                        <button type="button" class="chip px-3 h-9 rounded-full border border-line text-body" data-model="GPT-4o" aria-pressed="false">GPT-4o</button>
+                                                    </div>
+                                                    <button type="button" id="scaleToggle" role="switch" aria-checked="false" class="inline-flex items-center gap-2.5 text-[13px] font-mono text-body">
+                                                        <span class="switch" aria-hidden="true"></span> True scale (0–100%)
+                                                    </button>
+                                                </div>
+
+                                                <div id="lbRows" class="space-y-3"></div>
+
+                                                <div class="flex justify-between text-[12px] font-mono text-muted mt-2 ps-[calc(min(42%,260px)+12px)] pe-[64px]" aria-hidden="true">
+                                                    <span>0%</span><span id="axisMax">5%</span>
+                                                </div>
+
+                                                <p id="lbCaption" class="mt-5 text-[15px] leading-relaxed"></p>
+                                            </div>
+
+                                            <!-- Category breakdown -->
+                                            <div id="panelCat" role="tabpanel" aria-labelledby="tabCat" hidden>
+                                                <p class="mb-5 text-[15px] leading-relaxed">We traced <strong class="text-ink">50 reproducible issues</strong> to six root causes. Tap a category to see what's inside.</p>
+                                                <div id="catRows" class="space-y-2"></div>
+                                            </div>
+
+                                            <div id="benchTip" class="pointer-events-none absolute z-10 px-3 py-2 rounded-lg bg-ink text-canvas text-[13px] shadow-xl opacity-0" role="tooltip"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1797,6 +1856,158 @@
             }).catch(() => {});
         }
 
+        // --- AgentIssue-Bench Explorer ---
+        function initBenchExplorer() {
+            // Source: AgentIssue-Bench leaderboard (alfin06.github.io/AgentIssue-Bench-Leaderboard)
+            const LEADERBOARD = [
+                { agent: 'AutoCodeRover', model: 'Claude 3.5 Sonnet', score: 4.67 },
+                { agent: 'Agentless', model: 'Claude 3.5 Sonnet', score: 4.00 },
+                { agent: 'Agentless', model: 'GPT-4o', score: 3.33 },
+                { agent: 'SWE-agent', model: 'Claude 3.5 Sonnet', score: 2.00 },
+                { agent: 'AutoCodeRover', model: 'GPT-4o', score: 1.33 },
+                { agent: 'SWE-agent', model: 'GPT-4o', score: 0.67 }
+            ];
+            // Source: AgentIssue-Bench distribution of the 50 issues (percent of issues)
+            const CATEGORIES = [
+                { name: 'Utility issues', pct: 24, subs: [['Configuration', 12], ['Implementation', 8], ['Dependency', 4]] },
+                { name: 'Tool-related issues', pct: 24, subs: [['Misusing tool interfaces', 6], ['Tool implementation errors', 6], ['Tool configuration', 6], ['Tool dependency', 6]] },
+                { name: 'LLM operation issues', pct: 22, subs: [['Model dependency', 8], ['Model access misconfiguration', 4], ['Context length', 4], ['Prompt-related', 4], ['Incorrect model output handlers', 2]] },
+                { name: 'Memory-related issues', pct: 16, subs: [['Memory content errors', 10], ['Memory initialization', 6]] },
+                { name: 'Workflow issues', pct: 10, subs: [['Workflow issues', 10]] },
+                { name: 'Incompatibility with LLM providers', pct: 4, subs: [['Incompatible parameters', 4]] }
+            ];
+            const TOTAL_ISSUES = 50;
+
+            const explorer = document.getElementById('benchExplorer');
+            const tip = document.getElementById('benchTip');
+            let trueScale = false;
+            let modelFilter = 'all';
+
+            // ---- Tooltip ----
+            function showTip(html, target) {
+                tip.innerHTML = html;
+                const box = explorer.getBoundingClientRect();
+                const r = target.getBoundingClientRect();
+                tip.style.opacity = '1';
+                const left = Math.min(Math.max(r.left - box.left + r.width / 2 - tip.offsetWidth / 2, 8), box.width - tip.offsetWidth - 8);
+                tip.style.left = `${left}px`;
+                tip.style.top = `${r.top - box.top - tip.offsetHeight - 8}px`;
+            }
+            const hideTip = () => { tip.style.opacity = '0'; };
+
+            // ---- Leaderboard ----
+            function renderLeaderboard() {
+                document.getElementById('lbRows').innerHTML = LEADERBOARD.map((row, i) => `
+                    <div class="lb-row grid grid-cols-[minmax(0,min(42%,260px))_1fr_52px] items-center gap-3" data-model="${row.model}" data-i="${i}">
+                        <div class="min-w-0">
+                            <div class="text-[15px] font-semibold text-ink truncate"><span class="font-mono text-muted text-[13px] me-1.5">#${i + 1}</span>${row.agent}</div>
+                            <div class="text-[13px] text-muted truncate">${row.model}</div>
+                        </div>
+                        <div class="bar-track h-7"><div class="bar-fill" data-value="${row.score}"></div></div>
+                        <div class="text-[15px] font-semibold text-ink text-right tabular-nums">${row.score.toFixed(2)}%</div>
+                    </div>`).join('');
+
+                document.querySelectorAll('.lb-row').forEach(el => {
+                    const row = LEADERBOARD[el.dataset.i];
+                    const html = `<strong>${row.agent} + ${row.model}</strong><br>${row.score.toFixed(2)}% of issues resolved`;
+                    el.addEventListener('pointerenter', () => showTip(html, el.querySelector('.bar-track')));
+                    el.addEventListener('pointerleave', hideTip);
+                });
+            }
+
+            function updateLeaderboard() {
+                const max = trueScale ? 100 : 5;
+                document.getElementById('axisMax').textContent = `${max}%`;
+                document.querySelectorAll('#lbRows .bar-fill').forEach(bar => {
+                    bar.style.width = `${(Number(bar.dataset.value) / max) * 100}%`;
+                });
+                document.querySelectorAll('.lb-row').forEach(el => {
+                    el.classList.toggle('is-dimmed', modelFilter !== 'all' && el.dataset.model !== modelFilter);
+                });
+
+                const shown = LEADERBOARD.filter(r => modelFilter === 'all' || r.model === modelFilter);
+                const best = shown[0];
+                document.getElementById('lbCaption').innerHTML = trueScale
+                    ? `On the full 0–100% scale the bars nearly vanish: the best agent resolves <strong class="text-ink">fewer than 1 in 20</strong> real agent-system issues.`
+                    : `Best${modelFilter === 'all' ? '' : ` with ${modelFilter}`}: <strong class="text-ink">${best.agent} + ${best.model}</strong> at ${best.score.toFixed(2)}%. Flip on <em>True scale</em> to see how far that is from solved.`;
+            }
+
+            document.querySelectorAll('.chip').forEach(chip => chip.addEventListener('click', () => {
+                modelFilter = chip.dataset.model;
+                document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+                updateLeaderboard();
+            }));
+            document.getElementById('scaleToggle').addEventListener('click', (e) => {
+                trueScale = !trueScale;
+                e.currentTarget.setAttribute('aria-checked', String(trueScale));
+                updateLeaderboard();
+            });
+
+            // ---- Categories ----
+            function renderCategories() {
+                document.getElementById('catRows').innerHTML = CATEGORIES.map((cat, i) => `
+                    <div>
+                        <button type="button" class="cat-row w-full text-left grid grid-cols-[minmax(0,1fr)_auto] sm:grid-cols-[minmax(0,min(42%,260px))_1fr_80px] items-center gap-x-3 gap-y-1.5 py-2 rounded-lg" aria-expanded="false" aria-controls="sub${i}" data-i="${i}">
+                            <span class="flex items-center gap-2 min-w-0">
+                                <i class="chev fa-solid fa-chevron-right text-[11px] text-muted transition-transform"></i>
+                                <span class="text-[15px] font-semibold text-ink sm:truncate">${cat.name}</span>
+                            </span>
+                            <span class="bar-track h-6 block col-span-2 order-last sm:col-span-1 sm:order-none"><span class="bar-fill block" data-value="${cat.pct}"></span></span>
+                            <span class="text-right tabular-nums"><span class="text-[15px] font-semibold text-ink">${cat.pct}%</span> <span class="text-[12px] text-muted">(${cat.pct * TOTAL_ISSUES / 100})</span></span>
+                        </button>
+                        <div id="sub${i}" class="sub-list" data-open="false">
+                            <div>
+                                <div class="ps-6 pb-2 space-y-1.5">
+                                    ${cat.subs.map(([name, pct]) => `
+                                        <div class="grid grid-cols-[minmax(0,1fr)_auto] sm:grid-cols-[minmax(0,calc(min(42%,260px)-24px))_1fr_80px] items-center gap-x-3 gap-y-1">
+                                            <span class="text-[14px] text-body sm:truncate">${name}</span>
+                                            <span class="bar-track h-3 block col-span-2 order-last sm:col-span-1 sm:order-none"><span class="bar-fill block opacity-60" data-value="${pct}"></span></span>
+                                            <span class="text-right text-[13px] text-muted tabular-nums">${pct}%</span>
+                                        </div>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>`).join('');
+
+                document.querySelectorAll('.cat-row').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const open = btn.getAttribute('aria-expanded') !== 'true';
+                        btn.setAttribute('aria-expanded', String(open));
+                        document.getElementById(btn.getAttribute('aria-controls')).dataset.open = String(open);
+                    });
+                    const cat = CATEGORIES[btn.dataset.i];
+                    btn.addEventListener('pointerenter', () => showTip(`<strong>${cat.name}</strong><br>${cat.pct * TOTAL_ISSUES / 100} of ${TOTAL_ISSUES} issues (${cat.pct}%)`, btn.querySelector('.bar-track')));
+                    btn.addEventListener('pointerleave', hideTip);
+                });
+            }
+
+            function growCategoryBars() {
+                // Bars are scaled to the largest category so the ranking reads clearly
+                document.querySelectorAll('#catRows .bar-fill').forEach(bar => {
+                    bar.style.width = `${(Number(bar.dataset.value) / 24) * 100}%`;
+                });
+            }
+
+            // ---- Tabs ----
+            document.querySelectorAll('.bench-tab').forEach(tab => tab.addEventListener('click', () => {
+                document.querySelectorAll('.bench-tab').forEach(t => {
+                    const active = t === tab;
+                    t.setAttribute('aria-selected', String(active));
+                    document.getElementById(t.getAttribute('aria-controls')).hidden = !active;
+                });
+                if (tab.id === 'tabCat') requestAnimationFrame(() => requestAnimationFrame(growCategoryBars));
+            }));
+
+            renderLeaderboard();
+            renderCategories();
+            // Grow the bars once the card scrolls into view
+            new IntersectionObserver(([entry], observer) => {
+                if (!entry.isIntersecting) return;
+                observer.disconnect();
+                setTimeout(updateLeaderboard, reduceMotion ? 0 : 200);
+            }, { threshold: 0.3 }).observe(explorer);
+        }
+
         // --- Experience Journey Globe ---
         const PLACES = {
             pensacola: { label: 'Pensacola, FL, USA', coords: [-87.21, 30.47] },
@@ -2013,6 +2224,7 @@
         initCvLinks();
         initMobileMenu();
         initJourneyGlobe();
+        initBenchExplorer();
         loopTypewriter();
     </script>
 </body>
