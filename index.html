@@ -295,6 +295,22 @@
         [aria-checked="true"] .switch::after { transform: translateX(16px); }
         #benchTip { transition: opacity 0.15s; }
 
+        /* AgentBug-Smith pipeline walkthrough */
+        .smith-step { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; position: relative; z-index: 1; padding: 0; }
+        .smith-step .step-dot {
+            width: 2.5rem; height: 2.5rem; border-radius: 9999px; display: flex; align-items: center; justify-content: center;
+            background: rgb(var(--surface)); border: 2px solid rgb(var(--line)); color: rgb(var(--muted));
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s, transform 0.3s var(--ease-out);
+        }
+        .smith-step .step-label { font: 500 13px 'Fira Code', monospace; color: rgb(var(--muted)); text-align: center; line-height: 1.25; transition: color 0.3s; }
+        .smith-step:hover .step-dot { border-color: rgb(var(--accent) / 0.6); color: rgb(var(--accent)); }
+        .smith-step.is-done .step-dot { border-color: rgb(var(--accent)); color: rgb(var(--accent)); }
+        .smith-step[aria-selected="true"] .step-dot { background: rgb(var(--accent)); border-color: rgb(var(--accent)); color: rgb(var(--on-accent)); transform: scale(1.08); }
+        .smith-step[aria-selected="true"] .step-label { color: rgb(var(--ink)); }
+        #smithProgress { transform: scaleX(0); transition: transform 0.5s var(--ease-out); }
+        #smithDetail { transition: opacity 0.25s, transform 0.25s var(--ease-out); }
+        #smithDetail.is-updating { opacity: 0; transform: translateY(6px); }
+
         /* Modal */
         .modal-backdrop { opacity: 0; transition: opacity 0.25s; }
         .modal-panel { opacity: 0; transform: translateY(16px) scale(0.97); transition: opacity 0.25s, transform 0.35s var(--ease-out); }
@@ -701,7 +717,7 @@
                     </article>
 
                     <!-- Publication: AgentBug-Smith preprint -->
-                    <article class="reveal tilt rounded-2xl border border-line bg-surface p-5 sm:p-7">
+                    <article class="reveal rounded-2xl border border-line bg-surface p-5 sm:p-7">
                         <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
                             <div class="sm:w-28 flex-shrink-0 flex sm:flex-col items-center sm:items-start gap-2">
                                 <span class="px-2.5 py-1 rounded-md border border-accent/50 text-accent text-[12px] font-mono font-semibold">Preprint</span>
@@ -709,11 +725,53 @@
                             </div>
                             <div class="flex-grow min-w-0">
                                 <h3 class="text-lg sm:text-xl font-bold text-ink leading-snug">AgentBug-Smith: Automatically Reproducing Real-World Harness Bugs in Agentic Systems</h3>
+                                <p class="mt-1 text-sm text-muted">Yiming Cheng, <span class="text-ink font-semibold">Alfin Wijaya Rahardja</span>, Mengshi Zhang, Zihao Chen, Zhenpeng Chen, Yiling Lou</p>
                                 <p class="mt-1 text-sm text-muted">arXiv preprint, September 2026</p>
                                 <div class="flex flex-wrap gap-2 mt-4 text-[13px] font-mono">
                                     <a href="https://arxiv.org/abs/2609.37864" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-line hover:border-accent hover:text-accent transition-colors"><i class="fa-solid fa-file-pdf"></i> arXiv</a>
                                     <a href="https://github.com/EaminC/AgentBug-Smith" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-line hover:border-accent hover:text-accent transition-colors"><i class="fa-brands fa-github"></i> Code</a>
                                     <a href="https://huggingface.co/buckets/EaminChan/live-harness-bench" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-line hover:border-accent hover:text-accent transition-colors"><i class="fa-solid fa-ranking-star"></i> Live-harness bench</a>
+                                    <button type="button" class="abstract-toggle inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent/10 text-accent hover:bg-accent/20 transition-colors" aria-expanded="false" aria-controls="abstractSmith">
+                                        Abstract <i class="fa-solid fa-chevron-down text-[10px] transition-transform"></i>
+                                    </button>
+                                </div>
+                                <div id="abstractSmith" class="collapsible" data-open="false">
+                                    <div>
+                                        <p class="mt-4 pt-4 border-t border-line text-[15px] leading-relaxed">
+                                            Harness bugs in agentic systems are hard for today's software agents to repair, and existing benchmarks hold only a small, fixed set of them that took hundreds of human hours to build. <strong class="text-ink">AgentBug-Smith</strong> automatically discovers and reproduces real-world harness bugs from open-source agentic systems, outperforming reproduction techniques designed for general software. Running it in the wild produced <strong class="text-ink">Live-Harness-Bench</strong>, a live benchmark of 200 reproducible harness bugs that we use both to evaluate software agents and as a knowledge base for distilling repair skills that improve them.
+                                        </p>
+
+                                        <!-- Headline results -->
+                                        <div class="grid sm:grid-cols-3 gap-3 mt-6">
+                                            <div class="rounded-xl border border-line bg-raised/40 p-4">
+                                                <div class="text-2xl font-extrabold text-ink tracking-tight tabular-nums">+<span class="count-on-open" data-to="10.67" data-decimals="2">10.67</span>–<span class="count-on-open" data-to="27.56" data-decimals="2">27.56</span><span class="text-accent">%</span></div>
+                                                <div class="mt-1 text-sm text-muted leading-snug">higher success reproducing harness bugs than general-purpose techniques</div>
+                                            </div>
+                                            <div class="rounded-xl border border-line bg-raised/40 p-4">
+                                                <div class="text-2xl font-extrabold text-ink tracking-tight tabular-nums"><span class="count-on-open" data-to="200">200</span></div>
+                                                <div class="mt-1 text-sm text-muted leading-snug">reproducible bugs in Live-Harness-Bench, and growing</div>
+                                            </div>
+                                            <div class="rounded-xl border border-line bg-raised/40 p-4">
+                                                <div class="text-2xl font-extrabold text-ink tracking-tight tabular-nums">+<span class="count-on-open" data-to="6.32" data-decimals="2">6.32</span><span class="text-accent">%</span></div>
+                                                <div class="mt-1 text-sm text-muted leading-snug">higher repair rate for agents using distilled repair skills</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Pipeline walkthrough -->
+                                        <div class="mt-6 pt-5 border-t border-line">
+                                            <div class="text-[13px] font-mono font-semibold uppercase tracking-wider text-accent mb-4">How it works</div>
+                                            <div class="smith-steps relative grid grid-cols-4 gap-2" role="tablist" aria-label="AgentBug-Smith pipeline">
+                                                <div class="absolute left-[12.5%] right-[12.5%] top-5 h-0.5 bg-line" aria-hidden="true">
+                                                    <div id="smithProgress" class="h-full bg-accent origin-left"></div>
+                                                </div>
+                                                <button type="button" role="tab" class="smith-step" aria-controls="smithDetail" data-step="0"><span class="step-dot"><i class="fa-solid fa-magnifying-glass"></i></span><span class="step-label">Discover</span></button>
+                                                <button type="button" role="tab" class="smith-step" aria-controls="smithDetail" data-step="1"><span class="step-dot"><i class="fa-solid fa-bug"></i></span><span class="step-label">Reproduce</span></button>
+                                                <button type="button" role="tab" class="smith-step" aria-controls="smithDetail" data-step="2"><span class="step-dot"><i class="fa-solid fa-flask-vial"></i></span><span class="step-label">Benchmark</span></button>
+                                                <button type="button" role="tab" class="smith-step" aria-controls="smithDetail" data-step="3"><span class="step-dot"><i class="fa-solid fa-wand-magic-sparkles"></i></span><span class="step-label">Distill skills</span></button>
+                                            </div>
+                                            <div id="smithDetail" role="tabpanel" aria-live="polite" class="mt-4 rounded-xl border border-line bg-raised/40 p-4 sm:p-5 min-h-[120px]"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1191,15 +1249,16 @@
 
         function countUp(el) {
             const target = Number(el.dataset.to);
+            const decimals = Number(el.dataset.decimals || 0);
             if (reduceMotion || !target) return;
             const duration = 1400;
             const start = performance.now();
             const tick = (now) => {
                 const t = Math.min((now - start) / duration, 1);
-                el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)));
+                el.textContent = (target * (1 - Math.pow(1 - t, 3))).toFixed(decimals);
                 if (t < 1) requestAnimationFrame(tick);
             };
-            el.textContent = '0';
+            el.textContent = (0).toFixed(decimals);
             requestAnimationFrame(tick);
         }
 
@@ -1472,8 +1531,102 @@
                     btn.setAttribute('aria-expanded', String(open));
                     panel.dataset.open = String(open);
                     btn.querySelector('i').style.transform = open ? 'rotate(180deg)' : '';
+                    if (!open) return;
+                    // Numbers inside an abstract count up the first time it opens
+                    panel.querySelectorAll('.count-on-open:not([data-counted])').forEach(el => {
+                        el.dataset.counted = 'true';
+                        countUp(el);
+                    });
+                    panel.dispatchEvent(new CustomEvent('abstractopen'));
                 });
             });
+        }
+
+        // --- AgentBug-Smith pipeline walkthrough ---
+        // Source: AgentBug-Smith abstract (arXiv:2609.37864)
+        const SMITH_STEPS = [
+            {
+                title: 'Discover',
+                text: 'Continuously finds real-world harness bugs reported in open-source agentic systems, instead of relying on a small, hand-built set.',
+                figure: 'Live',
+                note: 'mined from open-source agentic systems'
+            },
+            {
+                title: 'Reproduce',
+                text: 'Automatically turns each bug into an executable reproduction. Across backbone LLMs, it beats bug-reproduction techniques designed for general software.',
+                figure: '+10.67–27.56%',
+                note: 'reproduction success rate'
+            },
+            {
+                title: 'Benchmark',
+                text: 'Reproduced bugs become Live-Harness-Bench, a live, extensible benchmark. State-of-the-art software agents show limited ability to repair them.',
+                figure: '200',
+                note: 'reproducible harness bugs'
+            },
+            {
+                title: 'Distill skills',
+                text: 'The benchmark doubles as a knowledge base of real fixes, distilled into reusable repair skills that make existing agents better at harness-bug repair.',
+                figure: '+6.32%',
+                note: 'harness-bug repair rate'
+            }
+        ];
+
+        function initSmithSteps() {
+            const steps = [...document.querySelectorAll('.smith-step')];
+            const detail = document.getElementById('smithDetail');
+            const progress = document.getElementById('smithProgress');
+            let current = -1;
+            let autoplay = null;
+
+            const render = (step, i) => `
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+                    <div class="flex-grow">
+                        <div class="text-[12px] font-mono text-muted">Step ${i + 1} of ${SMITH_STEPS.length}</div>
+                        <div class="mt-0.5 font-semibold text-ink">${step.title}</div>
+                        <p class="mt-1 text-[15px] leading-relaxed">${step.text}</p>
+                    </div>
+                    <div class="sm:w-44 flex-shrink-0 sm:text-right">
+                        <div class="text-xl font-extrabold text-accent tabular-nums">${step.figure}</div>
+                        <div class="text-[12px] text-muted leading-snug">${step.note}</div>
+                    </div>
+                </div>`;
+
+            function show(i) {
+                if (i === current) return;
+                current = i;
+                steps.forEach((step, k) => {
+                    step.setAttribute('aria-selected', String(k === i));
+                    step.classList.toggle('is-done', k < i);
+                    step.tabIndex = k === i ? 0 : -1;
+                });
+                progress.style.transform = `scaleX(${i / (steps.length - 1)})`;
+                detail.classList.add('is-updating');
+                setTimeout(() => {
+                    detail.innerHTML = render(SMITH_STEPS[i], i);
+                    detail.classList.remove('is-updating');
+                }, reduceMotion ? 0 : 150);
+            }
+
+            const stopAutoplay = () => { clearInterval(autoplay); autoplay = null; };
+            steps.forEach((step, i) => step.addEventListener('click', () => { stopAutoplay(); show(i); }));
+            document.querySelector('.smith-steps').addEventListener('keydown', (e) => {
+                if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+                e.preventDefault();
+                stopAutoplay();
+                const next = (current + (e.key === 'ArrowRight' ? 1 : -1) + steps.length) % steps.length;
+                show(next);
+                steps[next].focus();
+            });
+
+            show(0);
+            // Play through the steps once, the first time the abstract opens
+            document.getElementById('abstractSmith').addEventListener('abstractopen', () => {
+                if (reduceMotion || current !== 0) return;
+                autoplay = setInterval(() => {
+                    if (current >= steps.length - 1) { stopAutoplay(); return; }
+                    show(current + 1);
+                }, 3500);
+            }, { once: true });
         }
 
         // --- Project Case Study Data ---
@@ -2225,6 +2378,7 @@
         initMobileMenu();
         initJourneyGlobe();
         initBenchExplorer();
+        initSmithSteps();
         loopTypewriter();
     </script>
 </body>
