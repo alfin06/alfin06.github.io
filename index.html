@@ -960,6 +960,46 @@
                             </div>
                         </div>
                     </article>
+
+                    <!-- Card: AgentBug-Smith & Live-Harness-Bench (full width, closes the grid) -->
+                    <article class="project-card reveal sm:col-span-2 lg:col-span-3" data-key="agentbug_smith" data-title="AgentBug-Smith" data-category="ai" data-skills="llm">
+                        <div class="tilt h-full rounded-2xl border border-line bg-surface overflow-hidden grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+                            <div class="p-5 sm:p-7 flex flex-col">
+                                <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                                    <span class="text-[13px] font-mono text-accent">Research Tool · Live Benchmark</span>
+                                    <span class="px-2 py-0.5 rounded-full bg-accent/10 text-accent text-[12px] font-mono"><i class="fa-solid fa-user-group me-1"></i>Co-author</span>
+                                </div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-ink mb-2">AgentBug-Smith &amp; Live-Harness-Bench</h3>
+                                <p class="text-[15px] leading-relaxed mb-5">Automatically discovers and reproduces real-world harness bugs in open-source agentic systems, turning them into a live, growing benchmark for evaluating and improving software agents.</p>
+                                <div class="flex flex-wrap gap-1.5 mb-6 text-[12px] font-mono">
+                                    <span class="px-2.5 py-1 rounded-md bg-raised text-body">LLM Agents</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-raised text-body">Bug Reproduction</span>
+                                    <span class="px-2.5 py-1 rounded-md bg-raised text-body">Benchmarking</span>
+                                </div>
+                                <div class="mt-auto flex flex-wrap gap-2">
+                                    <button type="button" data-open-project="agentbug_smith" class="group inline-flex items-center gap-2 h-10 px-4 rounded-full bg-accent text-on-accent text-sm font-semibold">Case study <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i></button>
+                                    <a href="https://github.com/EaminC/AgentBug-Smith" target="_blank" rel="noopener" class="inline-flex items-center gap-2 h-10 px-4 rounded-full border border-line text-ink text-sm hover:border-accent/60 transition-colors"><i class="fa-brands fa-github"></i> Code</a>
+                                    <a href="https://huggingface.co/buckets/EaminChan/live-harness-bench" target="_blank" rel="noopener" class="inline-flex items-center gap-2 h-10 px-4 rounded-full border border-line text-ink text-sm hover:border-accent/60 transition-colors"><i class="fa-solid fa-database"></i> Live-Harness-Bench</a>
+                                </div>
+                            </div>
+                            <div class="card-cover border-t lg:border-t-0 lg:border-l border-line p-5 sm:p-7 flex items-center">
+                                <div class="grid grid-cols-3 gap-2 sm:gap-3 w-full">
+                                    <div class="rounded-xl bg-canvas/80 backdrop-blur border border-line p-3 sm:p-4">
+                                        <div class="text-xl sm:text-2xl font-extrabold text-accent">+27.56%</div>
+                                        <div class="text-[12px] text-muted leading-tight mt-1">up to, in bug-reproduction success</div>
+                                    </div>
+                                    <div class="rounded-xl bg-canvas/80 backdrop-blur border border-line p-3 sm:p-4">
+                                        <div class="text-xl sm:text-2xl font-extrabold text-ink">200</div>
+                                        <div class="text-[12px] text-muted leading-tight mt-1">reproducible harness bugs</div>
+                                    </div>
+                                    <div class="rounded-xl bg-canvas/80 backdrop-blur border border-line p-3 sm:p-4">
+                                        <div class="text-xl sm:text-2xl font-extrabold text-ink">+6.32%</div>
+                                        <div class="text-[12px] text-muted leading-tight mt-1">agent repair rate with distilled skills</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </section>
 
@@ -1716,6 +1756,22 @@
                     ["Application Stack", "ASP.NET and C#, with jQuery for interactive forms and real-time guidance."],
                     ["Database & Logic", "Oracle Database with stored procedures and PL/SQL business logic for fast prerequisite checks."],
                     ["Integration", "Connected to existing Abeka student databases for history lookup and automated enrollment."]
+                ]
+            },
+            agentbug_smith: {
+                eyebrow: "Research Tool & Live Benchmark · Co-author",
+                title: "AgentBug-Smith & Live-Harness-Bench",
+                links: [
+                    ["fa-brands fa-github", "Code", "https://github.com/EaminC/AgentBug-Smith"],
+                    ["fa-solid fa-database", "Live-Harness-Bench", "https://huggingface.co/buckets/EaminChan/live-harness-bench"],
+                    ["fa-solid fa-file-pdf", "arXiv", "https://arxiv.org/abs/2609.37864"]
+                ],
+                problem: "Harness bugs in agentic systems have unique characteristics and are hard for state-of-the-art software agents to repair. Existing benchmarks contain only a small, fixed number of executable harness bugs and take hundreds of human hours to build.",
+                solution: "<strong>AgentBug-Smith</strong> is an automated approach that continuously discovers and reproduces real-world harness bugs from open-source agentic systems. Applying it in the wild produced <strong>Live-Harness-Bench</strong>, a live, extensible benchmark of 200 reproducible harness bugs.",
+                highlights: [
+                    ["Better reproduction", "Across different backbone LLMs, reproduces harness bugs with 10.67%–27.56% higher success rates than bug-reproduction techniques designed for general software."],
+                    ["Live benchmark", "Live-Harness-Bench grows as new bugs appear, and evaluating state-of-the-art software agents on it reveals their limited ability to repair real-world harness bugs."],
+                    ["Reusable repair skills", "Used as a knowledge base of real fixes, it yields distilled repair skills that raise existing agents' harness-bug repair rates by 6.32%."]
                 ]
             }
         };
