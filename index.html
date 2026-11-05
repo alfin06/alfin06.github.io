@@ -559,7 +559,7 @@
                     <div class="journey-globe-wrap sticky top-16 lg:top-28 z-10 lg:self-start -mx-4 px-4 py-3 mb-4 sm:mx-0 sm:px-0 bg-canvas/85 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none lg:py-0 lg:mb-0">
                         <div class="relative mx-auto w-full max-w-[180px] sm:max-w-[260px] lg:max-w-[440px] aspect-square">
                             <div class="absolute inset-[10%] rounded-full bg-accent/15 blur-3xl" aria-hidden="true"></div>
-                            <svg id="journeyGlobe" viewBox="0 0 500 500" class="relative w-full h-full" role="img" aria-label="Globe tracing Alfin's journey: Pensacola, Florida, then Tangerang, Indonesia, remote work for a company in Edinburgh, UK, and Shanghai, China"></svg>
+                            <svg id="journeyGlobe" viewBox="0 0 500 500" class="relative w-full h-full" role="img" aria-label="Globe tracing Alfin's journey: Pensacola, Florida, an internship in Marietta, Georgia, then Tangerang, Indonesia, remote work for a company in Edinburgh, UK, and Shanghai, China"></svg>
                             <div id="globeLoading" class="absolute inset-0 flex items-center justify-center text-[13px] font-mono text-muted" aria-hidden="true">Loading map…</div>
                         </div>
                         <div class="mt-2 lg:mt-5 flex items-center justify-center gap-2 text-[13px] font-mono">
@@ -586,7 +586,16 @@
                             </div>
                         </li>
 
-                        <li class="timeline-item reveal relative pl-10 sm:pl-12" data-place="pensacola">
+                        <li class="timeline-item reveal relative pl-10 sm:pl-12" data-place="marietta" data-arc-from="pensacola">
+                            <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
+                            <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
+                                <div class="flex items-center gap-2 text-[13px] font-mono text-muted"><i class="fa-solid fa-briefcase text-accent"></i><time>May 2016 – Aug 2016</time><span class="ms-1 px-2 py-0.5 rounded-full bg-accent/10 text-accent text-[12px]">Internship</span></div>
+                                <h3 class="mt-1.5 text-lg sm:text-xl font-bold text-ink">Software Programmer Intern</h3>
+                                <div class="mt-1 text-accent font-medium">AccuSentry · Marietta, GA, USA</div>
+                            </div>
+                        </li>
+
+                        <li class="timeline-item reveal relative pl-10 sm:pl-12" data-place="pensacola" data-arc-from="marietta">
                             <span class="timeline-dot absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-line border-4 border-canvas" aria-hidden="true"></span>
                             <div class="tilt rounded-2xl border border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
                                 <div class="flex items-center gap-2 text-[13px] font-mono text-muted"><i class="fa-solid fa-briefcase text-accent"></i><time>Jul 2017 – May 2020</time></div>
@@ -1908,6 +1917,7 @@
                 `${dim('2023–2024')} ${hl('ITGENIO Coding School')}: Programming Tutor ${dim('(remote)')}`,
                 `${dim('2020–2023')} ${hl('Pelita Harapan Group')}: IT Application Development Supervisor / Software Engineer`,
                 `${dim('2017–2020')} ${hl('Pensacola Christian College')}: IT Programmer`,
+                `${dim('2016     ')} ${hl('AccuSentry')}: Software Programmer Intern`,
                 `${dim('2013–2017')} ${hl('Pensacola Christian College')}: B.S. Computer Information Systems, minor in Math`
             ],
             skills: () => [
@@ -2220,6 +2230,7 @@
         // --- Experience Journey Globe ---
         const PLACES = {
             pensacola: { label: 'Pensacola, FL, USA', coords: [-87.21, 30.47] },
+            marietta: { label: 'Marietta, GA, USA', coords: [-84.55, 33.95] },
             tangerang: { label: 'Tangerang, Indonesia', coords: [106.61, -6.22] },
             edinburgh: { label: 'Edinburgh, UK · remote', coords: [-3.19, 55.95] },
             shanghai: { label: 'Shanghai, China', coords: [121.50, 31.30] }
